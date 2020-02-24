@@ -3,6 +3,7 @@
 #[macro_use]
 extern crate log;
 use env_logger;
+use crate::db;
 
 use pawliki::Pawliki;
 use eliza::Eliza;

@@ -61,8 +61,8 @@ impl Pawliki {
         //Initialize response
         let mut response: Option<String> = None;
 
-        //Arr of active prases to process and 
-        let phrases = get_phases(&get_transform(&input.to_lowercase(), &self.script.transforms));
+        //Arr of active prases to process and
+        let phrases = get_phrases(&get_transform(&input.to_lowercase(), &self.script.transforms));
         let (active_phrase, mut keystack) = populate_keystack(phrases, &self.script.keywords);
 
         if let Some(phrase) = active_phrase {
@@ -101,7 +101,7 @@ impl Pawliki {
     script.transforms: A set of rules to transform a user's input prior to processing.
         json,no_run
         { "word" : "remember", "equivalents" : ["recollect", "recall"]}
-     
+
         Then the text `"I can't recollect, or even recall nowdays"` would be transformed to
         "I can't remember, or even remember nowdays"` before performing a keyword search.
     */
@@ -122,8 +122,8 @@ impl Pawliki {
     see if each word is equal to any keyword
     add the keyword to keystack, add the corresponging phrase to active_pharse
     */
-    fn populate_keystack(phrases: Vec<String>,  keywords: &[Keyword],) 
-        -> (Option<String>, VecDeque<Keyword>) 
+    fn populate_keystack(phrases: Vec<String>,  keywords: &[Keyword],)
+        -> (Option<String>, VecDeque<Keyword>)
         {
         let mut keystack: Vec<Keyword> = Vec::new();
         let mut active_phrase: Option<String> = None;
@@ -155,47 +155,17 @@ impl Pawliki {
     */
     fn get_response(&mut self, phrase: &str, keystack: &mut VecDeque<Keyword>) -> Option<String> {
         let mut response: Option<String> = None;
-        
+
         //Search for a response while the keystack is not empty
         'search: while response.is_none() && !keystack.is_empty() {
             let next = keystack.pop_front().unwrap(); //safe due to prior check
 
             //For each rule set, attempt to decompose phrase then reassemble a response
             'decompostion: for r in next.rules {
-                
+
             }
         }
     }
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
