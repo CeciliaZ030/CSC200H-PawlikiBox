@@ -1,0 +1,77 @@
+{
+  "greetings" : [
+    "Hello",
+    "Yo Ho Ho"
+  ],
+  "farewells" : [
+    "Bye",
+    "See you again."
+  ],
+  "fallbacks" : [
+    "Aye.",
+    "Please continue."
+  ],
+  "transforms" : [
+    { "word" : "dont", "equivalents" : ["don't", "do not"]},
+    { "word" : "cant", "equivalents":["can't", "cannot"]},
+    { "word" : "wont", "equivalents" : ["won't", "will not"]},
+    { "word" : "yes", "equivalents" : ["certainly", "okay"]},
+    { "word" : "computer", "equivalents" : ["machine", "machines", "computers"]},
+    { "word" : "was", "equivalents" : ["were"]},
+    { "word" : "you are", "equivalents" : ["you're", "youre"]},
+    { "word" : "i am", "equivalents" : ["i'm"]}
+  ],
+  "synonyms" : [
+    { "word" : "be", "equivalents" : ["am", "is", "are", "was"]},
+    { "word" : "cannot", "equivalents" : ["can't"]},
+    { "word" : "happy", "equivalents" : ["elated", "glad", "better"]},
+    { "word" : "sad", "equivalents" : ["unhappy", "depressed", "sick"]}
+  ],
+  "reflections" : [
+    { "word" : "am", "inverse" : "are", "twoway" : false},
+    { "word" : "your", "inverse" : "my", "twoway" : true},
+    { "word" : "me", "inverse" : "you", "twoway" : false},
+    { "word" : "i", "inverse" : "you", "twoway" : true},
+    { "word" : "i am", "inverse" : "you are", "twoway" : false},
+    { "word" : "was", "inverse": "were", "twoway": false},
+    { "word" : "we", "inverse": "you", "twoway": false}
+  ],
+  "keywords" : [
+      {
+        "key" : "CSC242",
+        "rank" : 0,
+        "rules" : [
+          {
+            "lookup": true,
+            "memorise" : false,
+            "prerequisites": [
+                "CSC172",
+                "MTH150"
+            ],
+            "decomposition_rule" : "(.+)prerequisite for CSC242",
+            "reassembly_rules" : [
+              "The prerequisite for CSC242 is"
+            ]
+          }
+        ]
+    },
+      {
+        "key" : "prerequisite",
+        "rank" : 1,
+        "rules" : [
+          {
+            "lookup": true,
+            "memorise" : false,
+            "prerequisites": [
+                "CSC172",
+                "CSC242"
+            ],
+            "decomposition_rule" : "What is the prerequisite for (.+)",
+            "reassembly_rules" : [
+              "The prerequisite for $1 is"
+            ]
+          }
+        ]
+      }
+  ]
+}

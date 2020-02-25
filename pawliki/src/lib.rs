@@ -162,10 +162,29 @@ impl Pawliki {
 
             //For each rule set, attempt to decompose phrase then reassemble a response
             'decompostion: for r in next.rules {
-
+                if let Some(preq) = self.get_prerequisites(&r.prerequisites) {
+                    response = Some(preq);
+                    break 'search;
+                }
             }
         }
     }
+
+    fn get_prerequisites(&mut self, prerequisites: &[String]) -> Option<String> {
+    println!("In");
+    let mut result: Option<String> = None;
+    let mut temp: String = format!("The prerequisite(s) is/are ");
+    for (index, prerequisite) in prerequisites.iter().enumerate() {
+        if index != prerequisites.len() - 1 {
+            temp = temp + prerequisite + " & ";
+        } else {
+            temp += prerequisite;
+        }
+
+    }
+    result = Some(temp.clone());
+    result
+}
 
 
 }
