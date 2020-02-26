@@ -1,55 +1,9 @@
-//! The script defines a set of rules which enable ELIZA to engage in discourse with a user.
-//!
-//! The beauty of ELIZA's design methodology means that the role of the programmer and playwright
-//! are separated. An important property of ELIZA is that a script is data - it is not part of the
-//! program itself. Hence, ELIZA is not restricted to a particular set of recognition patterns or
-//! responses, indeed not even to any specific language.
-//!
-//! ## Script Structure
-//!
-//! The script is written in `json` and is composed of the following.
-//!
-//! ```json,no_run
-//! {
-//!     "greetings" : ["", ...],
-//!     "farewells" : ["", ...],
-//!     "fallbacks" : ["", ...],
-//!     "transforms" : [
-//!         {"word": "", "equivalents": ["", ...]},
-//!         ...
-//!     ],
-//!     "synonyms" : [
-//!         {"word": "", "equivalents": ["", ...]},
-//!         ...
-//!     ],
-//!     "reflections" : [
-//!         {"word": "", "inverse": ["", ...], "twoway": bool},
-//!         ...
-//!     ],
-//!     "keywords" : [
-//!         {
-//!             "key": "", "rank": number,
-//!             "rules": [
-//!                 {
-//!                     "memorise": bool, "decomposition_rule": rust_regex,
-//!                     "reassembly_rules": ["", ...]
-//!                 },
-//!                 ...
-//!             ]
-//!         },
-//!         ...
-//!     ]
-//! }
-//! ```
-//!
-//! See struct documentation for more information on each element.
-//!
 use rand;
-use serde;
+use serde_derive::{Serialize, Deserialize};
+use serde::de::Deserialize;
 use serde_json;
 
 use rand::seq::SliceRandom;
-use self::serde::de::Deserialize;
 use std::error::Error;
 use std::fs::File;
 use std::path::Path;
@@ -143,9 +97,9 @@ pub struct Reflection {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Rule {
     pub memorise: bool,
+    pub lookup: bool,
     pub decomposition_rule: String,
     pub reassembly_rules: Vec<String>,
-    pub prerequisites: Vec<String>,
 }
 
 ///  A keyword and it's associated decompositon and reassembly rules.

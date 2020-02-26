@@ -6,7 +6,6 @@ use env_logger;
 use crate::db;
 
 use pawliki::Pawliki;
-use eliza::Eliza;
 
 use std::io::Write;
 use std::{env, io, thread, time};
