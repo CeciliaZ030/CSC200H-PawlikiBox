@@ -97,6 +97,7 @@ pub struct Reflection {
 pub struct Rule {
     pub memorise: bool,
     pub decomposition_rule: String,
+    pub lookup_rules: Vec<String>,
     pub reassembly_rules: Vec<String>,
 }
 

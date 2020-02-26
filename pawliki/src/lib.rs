@@ -95,29 +95,63 @@ impl Pawliki {
         //Search for a response while the keystack is not empty
         'search: while response.is_none() && !keystack.is_empty() {
             let next = keystack.pop_front().unwrap(); //safe due to prior check
+
 println!("keystack: {:?}", next.key);
             //For each rule set, attempt to decompose phrase then reassemble a response
+
             'decompostion: for r in next.rules {
 println!("rule: {:?}", r.decomposition_rule);
+
                 //Get all regex permutations of the decomposition rule (dependent upon synonyms)
                 let regexes = permutations(&r.decomposition_rule, &self.script.synonyms);
+
                 for re in regexes {
 println!("re: {:?}", re);
                     if let Some(cap) = re.captures(phrase) {
-                        if r.lookup {
-                            //if the input requires a query, get data and assemble
-                            let data = self.get_query(r.lookup_rule);
-                            response = assemble_from_query(&data, &r.reassembly_rules);
-                        } else {
-                            //don't require query, we get assem_rule and form response
-                            let assem = self.get_reassembly(&r.decomposition_rule, &r.reassembly_rules);
-                            if let Some(response) = assemble(&assem, &cap, &self.script.reflections){
+println!("cap: {:?}", cap);
+
+                        //对于不需要lookup的词，lookup_rules为空，return NONE
+                        let data = self.get_lookup(&r.decomposition_rule, &r.lookup_rules)
+
+                        //修改get_reassembly，考虑data判断最好的assem rule，需要handle无data的情况
+                        if let Some(assem) = self.get_reassembly(&r.decomposition_rule, &r.reassembly_rules, &data)
+                        {
+println!("assem: {:?}", assem);
+
+                            //Goto逻辑不变?
+                            if let Some(goto) = is_goto(&assem) {
+println!("goto: {:?}", goto);
+                                //The best rule was a goto, push associated key entry to stack
+                                if let Some(entry) =
+                                    self.script.keywords.iter().find(|ref a| a.key == goto)
+                                {
+println!("entry: {:?}", entry);
+                                    //Push to front of keystack and skip to it
+                                    info!(
+                                        "Using GOTO '{}' for key '{}' and decomp rule '{}'",
+                                        goto, next.key, r.decomposition_rule
+                                    );
+                                    keystack.push_front(entry.clone());
+                                    break 'decompostion;
+                                } else {
+                                    error!("No such keyword: {}", goto);
+                                    continue; //Something wrong with this GOTO
+                                }
+                            }
+
+                            //修改：保留原有$2替换功能，通过assem和data组装response
+                            response = assemble(&assem, &data, &cap, &self.script.reflections);
+println!("resonse: {:?}", response);
+
+                            //memorise逻辑不变？
+                            if response.is_some() {
                                 if r.memorise {
                                     //We'll save this response for later...
                                     self.memory.push_back(response.unwrap());
                                     response = None;
                                 } else {
                                     //We found a response, exit
+println!("should break");
                                     break 'search;
                                 }
                             }
@@ -130,11 +164,12 @@ println!("re: {:?}", re);
         response
     }
 
-    fn get_query(&mut self, rule: &str) -> Option<Box<[String]>> {
-        let mut data: Option<[String]> = None;
-        data
+    //写这个
+    fn get_lookup(&mut self, id: &str, rules: &[String]){
+
     }
 
+    //改这个
     fn get_reassembly(&mut self, id: &str, rules: &[String]) -> Option<String> {
         let mut best_rule: Option<String> = None;
         let mut count: Option<usize> = None;
@@ -181,10 +216,7 @@ println!("re: {:?}", re);
 
 }
 
-fn assemble_from_query(data: &[String], rules: &[String]) -> Option<String> {
-    unimplemented!();
-}
-
+//改这个
 fn assemble(rule: &str, captures: &Captures<'_>, reflections: &[Reflection]) -> Option<String> {
     let mut temp = String::from(rule);
     let mut ok = true;
