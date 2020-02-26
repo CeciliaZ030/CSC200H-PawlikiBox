@@ -1,0 +1,28 @@
+{
+    "courses" : [
+        {
+            "id" : "CSC242",
+            "crn" : "22222",
+            "title" : "AI",
+            "term" : "spring",
+            "credits" : "4.0",
+            "instructor" : "Trump",
+            "prerequisites" : [
+                "MTH150",
+                "CSC172"
+            ]
+        },
+        {
+            "id" : "CSC246",
+            "crn" : "66666",
+            "title" : "ML",
+            "term" : "spring",
+            "credits" : "4.0",
+            "instructor" : "Obama",
+            "prerequisites" : [
+                "MTH164",
+                "MTH165"
+            ]
+        }
+    ]
+}
