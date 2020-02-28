@@ -57,7 +57,7 @@
     { "word" : "was", "inverse": "were", "twoway": false},
     { "word" : "we", "inverse": "you", "twoway": false}
   ],
-  
+
   "keywords" : [
     {
       "key" : "sorry",
@@ -67,9 +67,7 @@
           "memorise" : false,
           "lookup": false,
           "decomposition_rule" : "(.+)",
-          "lookup_rules": [
-            "get_prereq"
-          ],
+          "lookup_rule" : "",
           "reassembly_rules" : [
             "Please don't apologise.",
             "Apologies are not necessary.",
@@ -87,9 +85,7 @@
           "memorise" : false,
           "lookup": true,
           "decomposition_rule" : "is(.*)prerequisite of(.+)",
-          "lookup_rules": [
-            "get_prereq"
-          ],
+          "lookup_rule": "get_prereq",
           "reassembly_rules" : [
             "Please don't apologise.",
             "Apologies are not necessary.",

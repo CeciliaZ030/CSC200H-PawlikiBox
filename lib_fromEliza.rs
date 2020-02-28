@@ -335,18 +335,21 @@ fn permutations(decomposition: &str, synonyms: &[Synonym]) -> Vec<Regex> {
 }
 
 fn assemble(rule: &str, captures: &Captures<'_>, reflections: &[Reflection]) -> Option<String> {
+    
+    //rule指的是reassembly rule
     let mut temp = String::from(rule);
     let mut ok = true;
     let words = get_words(rule);
 
-println!("words in assemble: {:?}", words);
-
+println!("temp: {:?}", temp);
+println!("words: {:?}", words);
     //For each word, see if we need to swap anything out for a capture
     for w in &words {
         if w.contains("$") {
             //Format example 'What makes you think I am $2 ?' which
             //uses the second capture group of the regex
             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
+println!("scrubbed: {:?}", scrubbed);
             if let Ok(n) = scrubbed.parse::<usize>() {
                 if n < captures.len() + 1 {
                     //indexing starts at 1

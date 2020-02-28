@@ -116,7 +116,7 @@ println!("re: {:?}", re);
 println!("cap: {:?}", cap);
 
                         //对于不需要lookup的词，lookup_rules为空，return NONE
-                        let data = self.get_lookup(&r.decomposition_rule, &r.lookup_rules);
+                        let data = self.get_lookup(&r.decomposition_rule, &r.lookup_rule, &cap);
 
                         //修改get_reassembly，考虑data判断最好的assem rule，需要handle无data的情况
                         if let Some(assem) = self.get_reassembly(&r.decomposition_rule, &r.reassembly_rules, &data)
@@ -164,9 +164,26 @@ println!("should break");
         response
     }
 
-    //Data 里面本身就是一个Option，有数据则是Enum里的Types，没有则是None
-    fn get_lookup(&mut self, id: &str, rules: &[String]) -> Data {
+    //写这个：Data 里面本身就是一个Option，有数据则是Enum里的Types，没有则是None
+    //所有的查询方法都要take in array of args，处理一个问句中很多主体的情况
+    fn get_lookup(&mut self, dr: &str, lr: &str, captures: &Captures<' >) -> Data {
+        //Array of lookup parameters
+        let mut prams = Vec::new();
+        let temp: Vec<&str> = s.split(')').collect();
+        let num = temp.len()-1;
+        //dr中的括号数量就是param的数量，根据param的数量找param
+        
+        for cap in captures {
+            match cap {
+                Some(s) => {
+                    continue;
+                },
+                None => {
 
+                }
+            }
+        }
+        
     }
 
     //改这个
