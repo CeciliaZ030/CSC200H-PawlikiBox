@@ -1,17 +1,19 @@
-
 mod alphabet;
+mod db;
 pub mod script;
+
 
 use regex::{Captures, Regex};
 use std::collections::{HashMap, VecDeque};
 use std::error::Error;
 use crate::alphabet::Alphabet;
 use crate::script::{Keyword, Reflection, Script, Synonym, Transform};
-
+use crate::db::{DB, Data};
 
 #[derive(Default)]
 pub struct Pawliki {
     script: Script,
+    database: DB,
     memory: VecDeque<String>,
     rule_usage: HashMap<String, usize>,
 }
@@ -19,10 +21,13 @@ pub struct Pawliki {
 impl Pawliki {
 
 	//Initialize Pawliki to reads his script
-    pub fn from_file(location: &str) -> Result<Pawliki, Box<dyn Error>> {
+    pub fn from_file(location1: &str, location2: &str) -> Result<Pawliki, Box<dyn Error>> {
         let e = Pawliki {
             script: {
-                Script::from_file(location)?
+                Script::from_file(location1)?
+            },
+            database: {
+                DB::from_file(location2)?
             },
             memory: VecDeque::new(),
             rule_usage: HashMap::new(),
@@ -111,7 +116,7 @@ println!("re: {:?}", re);
 println!("cap: {:?}", cap);
 
                         //对于不需要lookup的词，lookup_rules为空，return NONE
-                        let data = self.get_lookup(&r.decomposition_rule, &r.lookup_rules)
+                        let data = self.get_lookup(&r.decomposition_rule, &r.lookup_rules);
 
                         //修改get_reassembly，考虑data判断最好的assem rule，需要handle无data的情况
                         if let Some(assem) = self.get_reassembly(&r.decomposition_rule, &r.reassembly_rules, &data)
@@ -127,14 +132,9 @@ println!("goto: {:?}", goto);
                                 {
 println!("entry: {:?}", entry);
                                     //Push to front of keystack and skip to it
-                                    info!(
-                                        "Using GOTO '{}' for key '{}' and decomp rule '{}'",
-                                        goto, next.key, r.decomposition_rule
-                                    );
                                     keystack.push_front(entry.clone());
                                     break 'decompostion;
                                 } else {
-                                    error!("No such keyword: {}", goto);
                                     continue; //Something wrong with this GOTO
                                 }
                             }
@@ -164,13 +164,14 @@ println!("should break");
         response
     }
 
-    //写这个 -> 需要想想return type是啥
-    fn get_lookup(&mut self, id: &str, rules: &[String]) -> return Type ?? {
+    //Data 里面本身就是一个Option，有数据则是Enum里的Types，没有则是None
+    fn get_lookup(&mut self, id: &str, rules: &[String]) -> Data {
 
     }
 
     //改这个
-    fn get_reassembly(&mut self, id: &str, rules: &[String]) -> Option<String> {
+    fn get_reassembly(&mut self, id: &str, rules: &[String], data: 
+        &Data) -> Option<String> {
         let mut best_rule: Option<String> = None;
         let mut count: Option<usize> = None;
 
@@ -217,7 +218,7 @@ println!("should break");
 }
 
 //改这个
-fn assemble(rule: &str, captures: &Captures<'_>, reflections: &[Reflection]) -> Option<String> {
+fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Reflection]) -> Option<String> {
     let mut temp = String::from(rule);
     let mut ok = true;
     let words = get_words(rule);
@@ -391,4 +392,16 @@ split phrase into single word
 */
 fn get_words(phrase: &str) -> Vec<String> {
     phrase.split_whitespace().map(|s| s.to_string()).collect()
+}
+
+//Returns NONE if not a goto, otherwise reutrns goto id
+fn is_goto(statement: &str) -> Option<String> {
+    match statement.contains("GOTO") {
+        true => Some(
+            statement
+                .replace("GOTO", "")
+                .replace(char::is_whitespace, ""),
+        ),
+        false => None,
+    }
 }

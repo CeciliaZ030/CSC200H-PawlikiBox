@@ -1,7 +1,5 @@
 {
-  
   "clusters" : [
-    //假装cluster长这样
     { "word" : "am", "inverse" : "are", "twoway" : false},
     { "word" : "your", "inverse" : "my", "twoway" : true},
     { "word" : "me", "inverse" : "you", "twoway" : false},
@@ -11,7 +9,6 @@
     { "word" : "was", "inverse": "were", "twoway": false},
     { "word" : "we", "inverse": "you", "twoway": false}
   ],
-
   "courses" : [
     {
       "id" : "CSC 161",
@@ -28,6 +25,6 @@
       "credits" : "4.0",
       "instructor" : "PURTEE A",
       "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
-    },
+    }
   ]
 }

@@ -1,6 +1,6 @@
 use rand;
 use serde_derive::{Serialize, Deserialize};
-use serde_json;
+use serde::de::Deserialize;
 
 use rand::seq::SliceRandom;
 use std::error::Error;
