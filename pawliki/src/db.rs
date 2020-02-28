@@ -47,6 +47,8 @@ pub enum ReturnType {
 
 }
 
+//这样操作
+
 impl DB {
     /// Will load an ELIZA json script from the file system.
     ///

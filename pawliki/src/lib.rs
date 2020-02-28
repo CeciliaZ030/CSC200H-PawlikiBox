@@ -164,8 +164,8 @@ println!("should break");
         response
     }
 
-    //写这个
-    fn get_lookup(&mut self, id: &str, rules: &[String]){
+    //写这个 -> 需要想想return type是啥
+    fn get_lookup(&mut self, id: &str, rules: &[String]) -> return Type ?? {
 
     }
 

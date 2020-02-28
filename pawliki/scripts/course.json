@@ -66,6 +66,9 @@
           "memorise" : false,
           "lookup": false,
           "decomposition_rule" : "(.+)",
+                    "lookup_rules": [
+            "get_prereq"
+          ],
           "reassembly_rules" : [
             "Please don't apologise.",
             "Apologies are not necessary.",
@@ -83,6 +86,9 @@
           "memorise" : false,
           "lookup": true,
           "decomposition_rule" : "is(.*)prerequisite of(.+)",
+          "lookup_rules": [
+            "get_prereq"
+          ],
           "reassembly_rules" : [
             "Please don't apologise.",
             "Apologies are not necessary.",
