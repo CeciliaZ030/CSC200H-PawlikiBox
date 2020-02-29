@@ -84,10 +84,11 @@
         {
           "memorise" : false,
           "lookup": true,
-          "decomposition_rule" : "is(.*)prerequisite of(.+)",
+          "decomposition_rule" : "(.*)is(.*)prerequisite of(.+)",
           "lookup_rule": "get_prereq",
           "reassembly_rules" : [
-            "Please don't apologise.",
+            "the prerequisite of #2 is $2",
+            "Sorry, I don't know the answer.",
             "Apologies are not necessary.",
             "I've told you that apologies are not required.",
             "It did not bother me.  Please continue."

@@ -68,7 +68,7 @@ impl DB {
     }
 
 
-    pub fn query_executor(&self, fun_name: &String, args: &Vec<String>) -> Data {
+    pub fn query_executor(&self, fun_name: &str, args: &Vec<String>) -> Data {
         let ret: Data;
 
         match fun_name.as_ref() {

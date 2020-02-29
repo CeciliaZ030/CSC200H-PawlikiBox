@@ -166,24 +166,25 @@ println!("should break");
 
     //写这个：Data 里面本身就是一个Option，有数据则是Enum里的Types，没有则是None
     //所有的查询方法都要take in array of args，处理一个问句中很多主体的情况
-    fn get_lookup(&mut self, dr: &str, lr: &str, captures: &Captures<' >) -> Data {
-        //Array of lookup parameters
-        let mut prams = Vec::new();
-        let temp: Vec<&str> = s.split(')').collect();
-        let num = temp.len()-1;
-        //dr中的括号数量就是param的数量，根据param的数量找param
-        
-        for cap in captures {
-            match cap {
-                Some(s) => {
-                    continue;
-                },
-                None => {
+    fn get_lookup<'t> (&mut self, dr: &str, lr: &str, captures: &Captures<'t>) -> Data {
 
-                }
+        //Array of lookup parameters
+        let mut params: Vec<String> = Vec::new();
+        let temp: Vec<&str> = dr.split(')').collect();
+        let mut count = 0;
+
+        //通过decomp rules中(.+)的位置找到captures中的param
+        for t in temp {
+            if t.contains("+") {
+                params.push(captures.get(count + 1).map_or("".to_string(), 
+                                                           |m| m.as_str().to_string()));
             }
+            count+=1;
         }
         
+        //执行query
+        self.database.query_executor(lr, &params)
+
     }
 
     //改这个
