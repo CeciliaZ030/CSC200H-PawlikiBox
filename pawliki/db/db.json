@@ -10,21 +10,61 @@
     { "word" : "we", "inverse": "you", "twoway": false}
   ],
   "courses" : [
-    {
-      "id" : "CSC 161",
-      "name" : "INTRO TO PROGRAMMING",
-      "term" : {"spring": true, "fall" : true},
-      "credits" : "4.0",
-      "instructor" : "SARKIS R",
-      "description" : "Hands-on introduction to programming using the Python programming language. Covers basic programming constructs including statements, expressions, variables, conditionals, iteration, and functions, as well as object-oriented programming and graphics. Recommended for non-majors, and/or students with less math and science background. Lab and workshop required."
+      {
+        "id" : "mth150",
+        "name" : "discrete math",
+        "term" : {"spring": true, "fall" : true},
+        "credits" : "4.0",
+        "instructor" : "xxx",
+        "prerequisites": [
+            ""
+        ],
+        "description" : "......"
+    },
+      {
+        "id" : "csc161",
+        "name" : "INTRO TO PROGRAMMING",
+        "term" : {"spring": true, "fall" : true},
+        "credits" : "4.0",
+        "prerequisites": [
+            ""
+        ],
+        "instructor" : "SARKIS R",
+        "description" : "Hands-on introduction to programming using the Python programming language. Covers basic programming constructs including statements, expressions, variables, conditionals, iteration, and functions, as well as object-oriented programming and graphics. Recommended for non-majors, and/or students with less math and science background. Lab and workshop required."
+      },
+      {
+        "id" : "csc171",
+        "name" : "INTRO TO COMPUTER SCIENCE",
+        "term" : {"spring": true, "fall" : true},
+        "credits" : "4.0",
+        "prerequisites": [
+            ""
+        ],
+        "instructor" : "PURTEE A",
+        "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
     },
     {
-      "id" : "CSC 171",
-      "name" : "INTRO TO COMPUTER SCIENCE",
+      "id" : "csc172",
+      "name" : "data struture",
       "term" : {"spring": true, "fall" : true},
       "credits" : "4.0",
-      "instructor" : "PURTEE A",
-      "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
+      "instructor" : "Zhupa",
+      "prerequisites": [
+          "csc171"
+      ],
+      "description" : "......"
+  },
+    {
+      "id" : "csc242",
+      "name" : "AI",
+      "term" : {"spring": true, "fall" : true},
+      "credits" : "4.0",
+      "instructor" : "Fegurson",
+      "prerequisites": [
+          "mth150",
+          "csc172"
+      ],
+      "description" : "......"
     }
   ]
 }

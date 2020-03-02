@@ -36,7 +36,6 @@ impl Pawliki {
         Ok(e)
     }
 
-
     pub fn greet(&self) -> String {
     	match self.script.rand_greet() {
     		Some(greet) => greet.to_string(),
@@ -76,9 +75,7 @@ impl Pawliki {
             response = self.get_response(&phrase, &mut keystack);
         }
 
-
-
-        String::from("Goodbye.")
+        response.unwrap()
     }
 
 
@@ -115,8 +112,12 @@ println!("re: {:?}", re);
                     if let Some(cap) = re.captures(phrase) {
 println!("cap: {:?}", cap);
 
-                        //对于不需要lookup的词，lookup_rules为空，return NONE
-                        let data = self.get_lookup(&r.decomposition_rule, &r.lookup_rule, &cap);
+                        // if the word does not need to be looked up, lookup_rules is empty, so return NONE
+                        let mut data: Data = Data::None;
+                        if r.lookup {
+                            data = self.get_lookup(&r.decomposition_rule, &r.lookup_rule, &cap);
+                        }
+// println!("data: {:?}", data);
 
                         //修改get_reassembly，考虑data判断最好的assem rule，需要handle无data的情况
                         if let Some(assem) = self.get_reassembly(&r.decomposition_rule, &r.reassembly_rules, &data)
@@ -141,7 +142,7 @@ println!("entry: {:?}", entry);
 
                             //修改：保留原有$2替换功能，通过assem和data组装response
                             response = assemble(&assem, &data, &cap, &self.script.reflections);
-println!("resonse: {:?}", response);
+println!("response: {:?}", response);
 
                             //memorise逻辑不变？
                             if response.is_some() {
@@ -166,7 +167,7 @@ println!("should break");
 
     //写这个：Data 里面本身就是一个Option，有数据则是Enum里的Types，没有则是None
     //所有的查询方法都要take in array of args，处理一个问句中很多主体的情况
-    fn get_lookup<'t> (&mut self, dr: &str, lr: &str, captures: &Captures<'t>) -> Data {
+    fn get_lookup<'t>(&mut self, dr: &str, lr: &str, captures: &Captures<'t>) -> Data {
 
         //Array of lookup parameters
         let mut params: Vec<String> = Vec::new();
@@ -176,27 +177,53 @@ println!("should break");
         //通过decomp rules中(.+)的位置找到captures中的param
         for t in temp {
             if t.contains("+") {
-                params.push(captures.get(count + 1).map_or("".to_string(), 
-                                                           |m| m.as_str().to_string()));
+                params.push(captures.get(count + 1).map_or("".to_string(),
+                                                           |m| m.as_str().to_string().replace(" ", "")));
             }
             count+=1;
         }
-        
+
+println!("params: {:?}", params);
         //执行query
         self.database.query_executor(lr, &params)
 
     }
 
     //改这个
-    fn get_reassembly(&mut self, id: &str, rules: &[String], data: 
+    //根據是否需要lookup和data是否為空確定使用哪個rule
+    // id is decomp rule; rules are reassem rules
+    fn get_reassembly(&mut self, id: &str, rules: &[String], data:
         &Data) -> Option<String> {
         let mut best_rule: Option<String> = None;
         let mut count: Option<usize> = None;
 
+
+
         //rules are prepended with an id to make them unique within that domain
         //(e.g. deconstruction rules could share similar looking assembly rules)
         for rule in rules {
+            // find the number of "$" appears in the rule
+            let number_of_param = rule.matches("$").count();
+
             let key = String::from(id) + rule;
+// println!("key: {:?}", key);
+            match data {
+                Data::None => {  },
+                Data::ACourse(c) => {
+                },
+                Data::ACluster(c) => {
+                },
+                Data::Courses(courses) => {
+                    if courses.len() != number_of_param {
+                        continue;
+                    }
+                    best_rule = Some(rule.clone());
+                    break;
+                },
+                Data::Clusters(courses) => {
+                },
+
+            }
             match self.rule_usage.contains_key(&key) {
                 true => {
                     //If it has already been used, get its usage count
@@ -237,38 +264,81 @@ println!("should break");
 
 //改这个
 fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Reflection]) -> Option<String> {
-    let mut temp = String::from(rule);
+    let mut res: String = format!("");
+    // let mut res = String::from(rule);
     let mut ok = true;
+    let mut counter = 0;
+
+    // tokenize rule into vector of string
     let words = get_words(rule);
 
     //For each word, see if we need to swap anything out for a capture
     for w in &words {
-        if w.contains("$") {
-            //Format example 'What makes you think I am $2 ?' which
-            //uses the second capture group of the regex
+
+        let mut temp: String = String::from(w);
+
+        if w.contains("#") {
             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
             if let Ok(n) = scrubbed.parse::<usize>() {
                 if n < captures.len() + 1 {
-                    //indexing starts at 1
-                    //Perform reflection on the capture before subsitution
-                    temp = temp
-                        .replace(&scrubbed, &reflect(&captures[n], reflections))
-                        .replace("$", "");
-                } else {
-                    ok = false;
+                    temp = temp.replace(&scrubbed, &reflect(&captures[n], reflections).to_uppercase()).replace("#", "");
+                } else { ok = false; }
+            } else { ok = false; }
+        }
+
+        // if there is data needed to be added
+        if w.contains("$") {
+            let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
+println!("scrubbed: {:?}", scrubbed);
+            if let Ok(n) = scrubbed.parse::<usize>() {
+                match data {
+                    Data::None => {},
+                    Data::ACourse(c) => {
+                    },
+                    Data::ACluster(c) => {
+                    },
+                    Data::Courses(c) => {
+                        println!("courses counter {:?}", c[counter].id);
+                        temp = temp.replace(&scrubbed, &c[counter].id).to_uppercase().replace("$", "");
+                        counter += 1;
+                    },
+                    Data::Clusters(c) => {
+
+                    },
                 }
-            } else {
-                ok = false;
             }
         }
+
+//         if w.contains("$") {
+//             //Format example 'What makes you think I am $2 ?' which
+//             //uses the second capture group of the regex
+//             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
+// println!("scrubbed: {:?}", scrubbed);
+//             if let Ok(n) = scrubbed.parse::<usize>() {
+//                 if n < captures.len() + 1 {
+//                     //indexing starts at 1
+//                     //Perform reflection on the capture before subsitution
+//                     temp = temp
+//                         .replace(&scrubbed, &reflect(&captures[n], reflections))
+//                         .replace("$", "");
+//                 } else {
+//                     ok = false;
+//                 }
+//             } else {
+//                 ok = false;
+//             }
+//         }
 
         if !ok {
             break;
         }
+
+        res = res + &temp + " ";
+        println!("res: {:?}", res);
     }
 
     if ok {
-        Some(temp)
+        Some(res)
     } else {
         None
     }
@@ -392,7 +462,6 @@ fn permutations(decomposition: &str, synonyms: &[Synonym]) -> Vec<Regex> {
 
     re_perms
 }
-
 
 /*
 spit input into phrases

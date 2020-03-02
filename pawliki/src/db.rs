@@ -27,6 +27,7 @@ pub struct Course {
     pub name: String,
     pub term: Term,
     pub credits: String,
+    pub prerequisites: Vec<String>,
     pub instructor: String,
     pub description: String,
 }
@@ -72,31 +73,57 @@ impl DB {
         let ret: Data;
 
         match fun_name.as_ref() {
+            "get_prereq" => {
+                if let Some(c) = self.get_prerequisites(&args[0]) {
+                    ret = Data::Courses(c);
+                } else {
+                    ret = Data::None;
+                }
+            },
             "get_all_courses" => {
                 if let Some(c) = self.get_all_courses() {
-                    ret = Data :: Courses(c);
+                    ret = Data::Courses(c);
                 } else {
-                    ret = Data :: None;
+                    ret = Data::None;
                 }
             },
             "get_course_by_id" => {
                 if let Some(c) = self.get_course_by_id(&args[0]) {
-                    ret = Data :: ACourse(c)
+                    ret = Data::ACourse(c)
                 } else {
-                    ret = Data :: None;
+                    ret = Data::None;
                 }
-                
+
             },
             _=> {
-                    println!("fuck you");
-                    ret = Data:: None
-                },
+                println!("no");
+                ret = Data::None;
+            },
         }
 
         ret
     }
 
-    pub fn get_course_by_id(&self, id: &str) -> Option<Course> {        
+    pub fn get_prerequisites(&self, id: &str) -> Option<Vec<Course>> {
+        let mut res: Option<Vec<Course>> = None;
+        for course in self.courses.clone() {
+            if course.id == id {
+                let prereqs = course.prerequisites;
+                let mut temp: Vec<Course> = Vec::new();
+                for (index, prerequisite) in prereqs.iter().enumerate() {
+                    for c in self.courses.clone() {
+                        if *prerequisite == c.id {
+                            temp.push(c);
+                        }
+                    }
+                }
+                res = Some(temp.clone());
+            }
+        }
+        res
+    }
+
+    pub fn get_course_by_id(&self, id: &str) -> Option<Course> {
         Some(self.courses.iter().find(|ref c| c.id == id)?.clone())
     }
 
@@ -108,5 +135,3 @@ impl DB {
         println!("courses: {:?}", self.courses);
     }
 }
-
-

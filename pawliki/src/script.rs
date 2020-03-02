@@ -30,6 +30,7 @@ pub struct Reflection {
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Rule {
     pub memorise: bool,
+    pub lookup: bool,
     pub decomposition_rule: String,
     pub lookup_rule: String,
     pub reassembly_rules: Vec<String>,

@@ -87,14 +87,13 @@
           "decomposition_rule" : "(.*)is(.*)prerequisite of(.+)",
           "lookup_rule": "get_prereq",
           "reassembly_rules" : [
-            "the prerequisite of #2 is $2",
-            "Sorry, I don't know the answer.",
-            "Apologies are not necessary.",
-            "I've told you that apologies are not required.",
-            "It did not bother me.  Please continue."
+            "The prerequisite of #3 is $1.",
+            "The prerequisites of #3 are $0 and $1.",
+            "The prerequisites of #3 are $0, $1, and $2.",
+            "Sorry, I don't know."
           ]
         }
       ]
-    },
+    }
   ]
 }
