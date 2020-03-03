@@ -63,12 +63,6 @@ impl DB {
         Ok(db)
     }
 
-    pub fn from_str(val: &str) -> Result<DB, Box<dyn Error>> {
-        let db: DB = serde_json::from_str(val)?;
-        Ok(db)
-    }
-
-
     pub fn query_executor(&self, fun_name: &str, args: &Vec<String>) -> Data {
         let ret: Data;
 
@@ -110,7 +104,7 @@ impl DB {
             if course.id == id {
                 let prereqs = course.prerequisites;
                 let mut temp: Vec<Course> = Vec::new();
-                for (index, prerequisite) in prereqs.iter().enumerate() {
+                for prerequisite in prereqs {
                     for c in self.courses.clone() {
                         if *prerequisite == c.id {
                             temp.push(c);
@@ -129,9 +123,5 @@ impl DB {
 
     pub fn get_all_courses(&self) -> Option<Vec<Course>> {
         Some(self.courses.clone())
-    }
-
-    pub fn print_stuff(&self) {
-        println!("courses: {:?}", self.courses);
     }
 }

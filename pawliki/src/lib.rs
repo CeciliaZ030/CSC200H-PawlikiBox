@@ -78,19 +78,6 @@ impl Pawliki {
         response.unwrap()
     }
 
-
-    /*
-    script.transforms: A set of rules to transform a user's input prior to processing.
-        json,no_run
-        { "word" : "remember", "equivalents" : ["recollect", "recall"]}
-
-        Then the text `"I can't recollect, or even recall nowdays"` would be transformed to
-        "I can't remember, or even remember nowdays"` before performing a keyword search.
-    */
-
-    /*
-
-    */
     fn get_response(&mut self, phrase: &str, keystack: &mut VecDeque<Keyword>) -> Option<String> {
         let mut response: Option<String> = None;
 
@@ -180,10 +167,8 @@ println!("should break");
                 params.push(captures.get(count + 1).map_or("".to_string(),
                                                            |m| m.as_str().to_string().replace(" ", "")));
             }
-            count+=1;
+            count += 1;
         }
-
-println!("params: {:?}", params);
         //执行query
         self.database.query_executor(lr, &params)
 
@@ -197,8 +182,6 @@ println!("params: {:?}", params);
         let mut best_rule: Option<String> = None;
         let mut count: Option<usize> = None;
 
-
-
         //rules are prepended with an id to make them unique within that domain
         //(e.g. deconstruction rules could share similar looking assembly rules)
         for rule in rules {
@@ -206,7 +189,6 @@ println!("params: {:?}", params);
             let number_of_param = rule.matches("$").count();
 
             let key = String::from(id) + rule;
-// println!("key: {:?}", key);
             match data {
                 Data::None => {  },
                 Data::ACourse(c) => {
@@ -284,13 +266,12 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
                     temp = temp.replace(&scrubbed, &reflect(&captures[n], reflections).to_uppercase()).replace("#", "");
                 } else { ok = false; }
             } else { ok = false; }
-        }
+        } /* [END] # */
 
         // if there is data needed to be added
         if w.contains("$") {
             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
-println!("scrubbed: {:?}", scrubbed);
-            if let Ok(n) = scrubbed.parse::<usize>() {
+            if let Ok(_n) = scrubbed.parse::<usize>() {
                 match data {
                     Data::None => {},
                     Data::ACourse(c) => {
@@ -298,7 +279,6 @@ println!("scrubbed: {:?}", scrubbed);
                     Data::ACluster(c) => {
                     },
                     Data::Courses(c) => {
-                        println!("courses counter {:?}", c[counter].id);
                         temp = temp.replace(&scrubbed, &c[counter].id).to_uppercase().replace("$", "");
                         counter += 1;
                     },
@@ -306,35 +286,15 @@ println!("scrubbed: {:?}", scrubbed);
 
                     },
                 }
-            }
-        }
+            } else { ok = false; }
 
-//         if w.contains("$") {
-//             //Format example 'What makes you think I am $2 ?' which
-//             //uses the second capture group of the regex
-//             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
-// println!("scrubbed: {:?}", scrubbed);
-//             if let Ok(n) = scrubbed.parse::<usize>() {
-//                 if n < captures.len() + 1 {
-//                     //indexing starts at 1
-//                     //Perform reflection on the capture before subsitution
-//                     temp = temp
-//                         .replace(&scrubbed, &reflect(&captures[n], reflections))
-//                         .replace("$", "");
-//                 } else {
-//                     ok = false;
-//                 }
-//             } else {
-//                 ok = false;
-//             }
-//         }
+        } /* [END] $ */
 
         if !ok {
             break;
         }
 
         res = res + &temp + " ";
-        println!("res: {:?}", res);
     }
 
     if ok {

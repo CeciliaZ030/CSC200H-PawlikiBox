@@ -36,7 +36,6 @@ fn main() {
 
         match input.as_ref() {
             "/quit\n" => break,
-            //Based on the rules in the script, eliza responds to the given input
             _ => {
                 //Insert short delay to make eliza seem like she's thinking
                 thread::sleep(time::Duration::from_millis(300));
