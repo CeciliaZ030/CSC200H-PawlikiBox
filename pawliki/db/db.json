@@ -21,6 +21,17 @@
         ],
         "description" : "......"
     },
+    {
+      "id" : "mth161",
+      "name" : "calc 1",
+      "term" : {"spring": true, "fall" : true},
+      "credits" : "4.0",
+      "instructor" : "xxx",
+      "prerequisites": [
+          ""
+      ],
+      "description" : "a class for mth 161"
+    },
       {
         "id" : "csc161",
         "name" : "INTRO TO PROGRAMMING",
@@ -40,7 +51,7 @@
         "prerequisites": [
             ""
         ],
-        "instructor" : "PURTEE A",
+        "instructor" : "purtee",
         "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
     },
     {
@@ -48,7 +59,7 @@
       "name" : "data struture",
       "term" : {"spring": true, "fall" : true},
       "credits" : "4.0",
-      "instructor" : "Zhupa",
+      "instructor" : "zhupa",
       "prerequisites": [
           "csc171"
       ],
@@ -59,7 +70,7 @@
       "name" : "AI",
       "term" : {"spring": true, "fall" : true},
       "credits" : "4.0",
-      "instructor" : "Fegurson",
+      "instructor" : "fegurson",
       "prerequisites": [
           "mth150",
           "csc172"

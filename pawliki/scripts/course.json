@@ -78,23 +78,62 @@
       ]
     },
     {
+      "key" : "who",
+      "rank" : 0,
+      "rules" : [
+        {
+          "memorise" : false,
+          "lookup": true,
+          "decomposition_rule" : "who is(.*)instructor(.+)",
+          "lookup_rule": "get_instructor",
+          "reassembly_rules" : [
+            "The instructor of #2 is $1.",
+            "Sorry, I don't know."
+          ]
+        }
+      ]
+    },
+    {
       "key" : "what",
       "rank" : 0,
       "rules" : [
         {
           "memorise" : false,
           "lookup": true,
-          "decomposition_rule" : "(.*)is(.*)prerequisite of(.+)",
+          "decomposition_rule" : "what is(.*)prerequisite of(.+)",
           "lookup_rule": "get_prereq",
           "reassembly_rules" : [
-            "The prerequisite of #3 is $1.",
-            "The prerequisites of #3 are $0 and $1.",
-            "The prerequisites of #3 are $0, $1, and $2.",
-            "There is no prerequisite for #3!",
+            "The prerequisite of #2 is $1.",
+            "The prerequisites of #2 are $0 and $1.",
+            "The prerequisites of #2 are $0, $1, and $2.",
+            "There is no prerequisite for #2!",
             "Sorry, I don't know."
           ]
-        }
+        },
+        {
+          "memorise" : false,
+          "lookup": true,
+          "decomposition_rule" : "what is(.+)about(.*)",
+          "lookup_rule": "get_description",
+          "reassembly_rules" : [
+            "#1 is about $2",
+            "Sorry, I don't know."
+          ]
+      },
+      {
+        "memorise" : false,
+        "lookup": true,
+        "decomposition_rule" : "what(.*)does(.+)teach(.*)",
+        "lookup_rule": "get_courses_by_prof",
+        "reassembly_rules" : [
+          "#2 teaches $1",
+          "#2 teaches $1 and $2",
+          "#2 teaches $1, $2, and $3",
+          "Sorry, I don't know"
+        ]
+      }
       ]
     }
+
   ]
 }

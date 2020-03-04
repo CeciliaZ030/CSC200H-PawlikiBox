@@ -95,7 +95,7 @@ println!("rule: {:?}", r.decomposition_rule);
                 let regexes = permutations(&r.decomposition_rule, &self.script.synonyms);
 
                 for re in regexes {
-println!("re: {:?}", re);
+// println!("re: {:?}", re);
                     if let Some(cap) = re.captures(phrase) {
 println!("cap: {:?}", cap);
 
@@ -113,12 +113,12 @@ println!("assem: {:?}", assem);
 
                             //Goto逻辑不变?
                             if let Some(goto) = is_goto(&assem) {
-println!("goto: {:?}", goto);
+// println!("goto: {:?}", goto);
                                 //The best rule was a goto, push associated key entry to stack
                                 if let Some(entry) =
                                     self.script.keywords.iter().find(|ref a| a.key == goto)
                                 {
-println!("entry: {:?}", entry);
+// println!("entry: {:?}", entry);
                                     //Push to front of keystack and skip to it
                                     keystack.push_front(entry.clone());
                                     break 'decompostion;
@@ -129,7 +129,7 @@ println!("entry: {:?}", entry);
 
                             //修改：保留原有$2替换功能，通过assem和data组装response
                             response = assemble(&assem, &data, &cap, &self.script.reflections);
-println!("response: {:?}", response);
+// println!("response: {:?}", response);
 
                             //memorise逻辑不变？
                             if response.is_some() {
@@ -139,7 +139,7 @@ println!("response: {:?}", response);
                                     response = None;
                                 } else {
                                     //We found a response, exit
-println!("should break");
+// println!("should break");
                                     break 'search;
                                 }
                             }
@@ -164,14 +164,19 @@ println!("should break");
         //通过decomp rules中(.+)的位置找到captures中的param
         for t in temp {
             if t.contains("+") {
-                params.push(captures.get(count + 1).map_or("".to_string(),
-                                                           |m| m.as_str().to_string().replace(" ", "")));
+                let mut capture: String = captures.get(count + 1).map_or("".to_string(),
+                                                           |m| m.as_str().to_string().replace(" ", ""));
+                let re = Regex::new(r"[[:alpha:]]{3}[[:digit:]]{3}").unwrap();
+                if re.find(&capture) != None {
+                    capture = re.find(&capture).unwrap().as_str().to_string();
+                }
+                params.push(capture);
             }
             count += 1;
         }
+println!("params: {:?}", params);
         //执行query
         self.database.query_executor(lr, &params)
-
     }
 
     //改这个
@@ -184,17 +189,34 @@ println!("should break");
 
         //rules are prepended with an id to make them unique within that domain
         //(e.g. deconstruction rules could share similar looking assembly rules)
-        for rule in rules {
+        for (index, rule) in rules.iter().enumerate() {
             // find the number of "$" appears in the rule
             let number_of_param = rule.matches("$").count();
 
             let key = String::from(id) + rule;
             match data {
-                Data::None => {  },
+                Data::None => {
+
+                    // if there is no data, we should only use the last rule
+                    if index == rules.len() - 1 {
+                        best_rule = Some(rule.clone());
+                        break;
+                    } else {
+                        continue;
+                    }
+                },
                 Data::ACourse(c) => {
                 },
                 Data::ACluster(c) => {
                 },
+                Data::Instructor(s) => {
+                    best_rule = Some(rule.clone());
+                    break;
+                },
+                Data::Description(d) => {
+                    best_rule = Some(rule.clone());
+                    break;
+                }
                 Data::Courses(courses) => {
                     if courses.len() != number_of_param {
                         continue;
@@ -257,13 +279,23 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
     //For each word, see if we need to swap anything out for a capture
     for w in &words {
 
+        // store the current word
         let mut temp: String = String::from(w);
 
         if w.contains("#") {
             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
             if let Ok(n) = scrubbed.parse::<usize>() {
                 if n < captures.len() + 1 {
-                    temp = temp.replace(&scrubbed, &reflect(&captures[n], reflections).to_uppercase()).replace("#", "");
+                    let mut class: String = reflect(&captures[n], reflections).to_uppercase();
+
+                    // match class in a word
+                    let re = Regex::new(r"[[:alpha:]]{3}\s??[[:digit:]]{3}").unwrap();
+
+                    // see if there is extra words/characters besides the course id
+                    if re.find(&class) != None {
+                        class = re.find(&class).unwrap().as_str().to_string();
+                    }
+                    temp = temp.replace(&scrubbed, &class).replace("#", "");
                 } else { ok = false; }
             } else { ok = false; }
         } /* [END] # */
@@ -275,9 +307,16 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
                 match data {
                     Data::None => {},
                     Data::ACourse(c) => {
+                        // temp = temp.replace(&scrubbed, &c[counter].id).to_uppercase().replace("$", "");
                     },
                     Data::ACluster(c) => {
                     },
+                    Data::Instructor(s) => {
+                        temp = temp.replace(&scrubbed, &s).to_uppercase().replace("$", "");
+                    },
+                    Data::Description(d) => {
+                        temp = temp.replace(&scrubbed, &d).replace("$", "");
+                    }
                     Data::Courses(c) => {
                         temp = temp.replace(&scrubbed, &c[counter].id).to_uppercase().replace("$", "");
                         counter += 1;
@@ -294,6 +333,7 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
             break;
         }
 
+        // append the word to the respond
         res = res + &temp + " ";
     }
 
