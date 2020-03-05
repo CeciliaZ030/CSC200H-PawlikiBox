@@ -65,17 +65,25 @@ impl Pawliki {
 
     pub fn respond(&mut self, input: &str) -> String {
         //Initialize response
-        let mut response: Option<String> = None;
+        let mut response;
 
         //Arr of active prases to process and
         let phrases = get_phrases(&transform(&input.to_lowercase(), &self.script.transforms));
         let (active_phrase, mut keystack) = populate_keystack(phrases, &self.script.keywords);
 
         if let Some(phrase) = active_phrase {
-            response = self.get_response(&phrase, &mut keystack);
+            response = self.get_response(&phrase, &mut keystack).unwrap();
+        }
+        else if let Some(mem) = self.memory.pop_front() {
+            //Attempt to use something in memory, otherwise use fallback trick
+            println!("Using memory");
+            response = mem;
+        } else {
+            println!("Using fallback statement");
+            response = self.fallback();
         }
 
-        response.unwrap()
+        response
     }
 
     fn get_response(&mut self, phrase: &str, keystack: &mut VecDeque<Keyword>) -> Option<String> {
@@ -492,3 +500,4 @@ fn is_goto(statement: &str) -> Option<String> {
         false => None,
     }
 }
+
