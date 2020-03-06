@@ -1,81 +1,198 @@
 {
-  "clusters" : [
-    { "word" : "am", "inverse" : "are", "twoway" : false},
-    { "word" : "your", "inverse" : "my", "twoway" : true},
-    { "word" : "me", "inverse" : "you", "twoway" : false},
-    { "word" : "myself", "inverse" : "yourself", "twoway" : true},
-    { "word" : "i", "inverse" : "you", "twoway" : true},
-    { "word" : "i am", "inverse" : "you are", "twoway" : false},
-    { "word" : "was", "inverse": "were", "twoway": false},
-    { "word" : "we", "inverse": "you", "twoway": false}
-  ],
-  "courses" : [
-      {
-        "id" : "mth150",
-        "name" : "discrete math",
-        "term" : {"spring": true, "fall" : true},
-        "credits" : "4.0",
-        "instructor" : "xxx",
-        "prerequisites": [
-            ""
-        ],
-        "description" : "......"
-    },
-    {
-      "id" : "mth161",
-      "name" : "calc 1",
-      "term" : {"spring": true, "fall" : true},
-      "credits" : "4.0",
-      "instructor" : "xxx",
-      "prerequisites": [
-          ""
-      ],
-      "description" : "a class for mth 161"
-    },
-      {
-        "id" : "csc161",
-        "name" : "INTRO TO PROGRAMMING",
-        "term" : {"spring": true, "fall" : true},
-        "credits" : "4.0",
-        "prerequisites": [
-            ""
-        ],
-        "instructor" : "SARKIS R",
-        "description" : "Hands-on introduction to programming using the Python programming language. Covers basic programming constructs including statements, expressions, variables, conditionals, iteration, and functions, as well as object-oriented programming and graphics. Recommended for non-majors, and/or students with less math and science background. Lab and workshop required."
-      },
-      {
-        "id" : "csc171",
-        "name" : "INTRO TO COMPUTER SCIENCE",
-        "term" : {"spring": true, "fall" : true},
-        "credits" : "4.0",
-        "prerequisites": [
-            ""
-        ],
-        "instructor" : "purtee",
-        "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
-    },
-    {
-      "id" : "csc172",
-      "name" : "data struture",
-      "term" : {"spring": true, "fall" : true},
-      "credits" : "4.0",
-      "instructor" : "zhupa",
-      "prerequisites": [
-          "csc171"
-      ],
-      "description" : "......"
-  },
-    {
-      "id" : "csc242",
-      "name" : "AI",
-      "term" : {"spring": true, "fall" : true},
-      "credits" : "4.0",
-      "instructor" : "fegurson",
-      "prerequisites": [
-          "mth150",
-          "csc172"
-      ],
-      "description" : "......"
-    }
-  ]
+    "clusters" : [
+        { "word" : "am", "inverse" : "are", "twoway" : false},
+        { "word" : "your", "inverse" : "my", "twoway" : true},
+        { "word" : "me", "inverse" : "you", "twoway" : false},
+        { "word" : "myself", "inverse" : "yourself", "twoway" : true},
+        { "word" : "i", "inverse" : "you", "twoway" : true},
+        { "word" : "i am", "inverse" : "you are", "twoway" : false},
+        { "word" : "was", "inverse": "were", "twoway": false},
+        { "word" : "we", "inverse": "you", "twoway": false}
+    ],
+    "courses" : [
+        {
+            "id" : "mth150",
+            "name" : "discrete math",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "xxx",
+            "prerequisites": [
+                ""
+            ],
+            "description" : "An introduction to discrete mathematics"
+        },
+        {
+            "id" : "mth161",
+            "name" : "calculus 1",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "xxx",
+            "prerequisites": [
+                ""
+            ],
+            "description" : "An introduction to limits and derivatives"
+        },
+        {
+            "id" : "mth162",
+            "name" : "calculus 2",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "xxx",
+            "prerequisites": [
+                "mth161"
+            ],
+            "description" : "An introduction to integral and sequence and series."
+        },
+        {
+            "id" : "mth164",
+            "name" : "Multivariate Calculus",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "xxx",
+            "prerequisites": [
+                "mth161",
+                "mth162"
+            ],
+            "description" : "An introduction to vector calculus."
+        },
+        {
+            "id" : "mth165",
+            "name" : "linear algebra with differential equations",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "xxx",
+            "prerequisites": [
+                "mth161",
+                "mth162"
+            ],
+            "description" : "An introduction to linear algebra and differential equations."
+        },
+        {
+            "id" : "csc161",
+            "name" : "INTRO TO PROGRAMMING",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "prerequisites": [
+                ""
+            ],
+            "instructor" : "SARKIS R",
+            "description" : "Hands-on introduction to programming using the Python programming language. Covers basic programming constructs including statements, expressions, variables, conditionals, iteration, and functions, as well as object-oriented programming and graphics. Recommended for non-majors, and/or students with less math and science background. Lab and workshop required."
+        },
+        {
+            "id" : "csc170",
+            "name" : "Web Programming",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "kostin",
+            "prerequisites": [
+                ""
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc171",
+            "name" : "INTRO TO COMPUTER SCIENCE",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "prerequisites": [
+                ""
+            ],
+            "instructor" : "purtee",
+            "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
+        },
+        {
+            "id" : "csc172",
+            "name" : "Data Structure and Algorithms",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "zhupa",
+            "prerequisites": [
+                "csc171"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc173",
+            "name" : "Copmutation and Formal System",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "ferguson",
+            "prerequisites": [
+                "mth150",
+                "csc172"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc174",
+            "name" : "Advanced Front-End Programming",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "kostin",
+            "prerequisites": [
+                "csc170"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc242",
+            "name" : "Artificaial Intelligence",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "ferguson",
+            "prerequisites": [
+                "mth150",
+                "csc172",
+                "csc173"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc252",
+            "name" : "Computer Organization",
+            "term" : {"spring": true, "fall" : false},
+            "credits" : "4.0",
+            "instructor" : "yuhao",
+            "prerequisites": [
+                "mth150",
+                "csc172"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc254",
+            "name" : "Design Language?",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "scott",
+            "prerequisites": [
+                "csc173",
+                "csc252"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc280",
+            "name" : "Computer Model and Limitations",
+            "term" : {"spring": true, "fall" : false},
+            "credits" : "4.0",
+            "instructor" : "xxx",
+            "prerequisites": [
+                "csc173"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc282",
+            "name" : "Design of Efficient Algorithms",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "stanfankovic",
+            "prerequisites": [
+                "mth150",
+                "csc172"
+            ],
+            "description" : "......"
+        }
+    ]
 }
