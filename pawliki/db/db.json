@@ -1,4 +1,39 @@
 {
+    "majors" : [
+        {
+            "type" : "bs",
+            "pre-major_courses" : [
+                "mth14x, mth16x, or mth17x",
+                "mth150",
+                "csc171",
+                "csc172"
+            ],
+            "core_courses" : [
+                "csc173",
+                "csc242",
+                "csc252",
+                "csc254",
+                "csc280",
+                "csc282"
+            ]
+        },
+        {
+            "type" : "ba",
+            "pre-major_courses" : [
+                "mth150",
+                "csc171",
+                "csc172"
+            ]
+        },
+        {
+            "type" : "honors",
+            "additional_courses" : [
+                "csc200h",
+                "csc391h",
+                "csc395h"
+            ]
+        }
+    ],
     "clusters" : [
         { "word" : "am", "inverse" : "are", "twoway" : false},
         { "word" : "your", "inverse" : "my", "twoway" : true},
@@ -113,7 +148,7 @@
         },
         {
             "id" : "csc173",
-            "name" : "Copmutation and Formal System",
+            "name" : "Computation and Formal Systems",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "instructor" : "ferguson",
@@ -136,7 +171,7 @@
         },
         {
             "id" : "csc242",
-            "name" : "Artificaial Intelligence",
+            "name" : "Introduction to Artificial Intelligence",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "instructor" : "ferguson",
@@ -161,7 +196,7 @@
         },
         {
             "id" : "csc254",
-            "name" : "Design Language?",
+            "name" : "Programming Language Design and Implementation",
             "term" : {"spring": false, "fall" : true},
             "credits" : "4.0",
             "instructor" : "scott",
@@ -173,7 +208,7 @@
         },
         {
             "id" : "csc280",
-            "name" : "Computer Model and Limitations",
+            "name" : "Computer Models and Limitations",
             "term" : {"spring": true, "fall" : false},
             "credits" : "4.0",
             "instructor" : "xxx",
@@ -184,7 +219,7 @@
         },
         {
             "id" : "csc282",
-            "name" : "Design of Efficient Algorithms",
+            "name" : "Design and Analytics of Efficient Algorithms",
             "term" : {"spring": false, "fall" : true},
             "credits" : "4.0",
             "instructor" : "stanfankovic",
