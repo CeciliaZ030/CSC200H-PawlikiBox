@@ -1,8 +1,8 @@
 {
     "majors" : [
         {
-            "type" : "bs",
-            "pre-major_courses" : [
+            "degree" : "bs",
+            "premajor_courses" : [
                 "mth14x, mth16x, or mth17x",
                 "mth150",
                 "csc171",
@@ -15,19 +15,42 @@
                 "csc254",
                 "csc280",
                 "csc282"
+            ],
+            "advanced_courses" : [
+                ""
             ]
         },
         {
-            "type" : "ba",
-            "pre-major_courses" : [
+            "degree" : "ba",
+            "premajor_courses" : [
                 "mth150",
                 "csc171",
                 "csc172"
+            ],
+            "core_courses" : [
+                ""
+            ],
+            "advanced_courses" : [
+                ""
             ]
         },
         {
-            "type" : "honors",
-            "additional_courses" : [
+            "degree" : "honors",
+            "premajor_courses" : [
+                "mth14x, mth16x, or mth17x",
+                "mth150",
+                "csc171",
+                "csc172"
+            ],
+            "core_courses" : [
+                "csc173",
+                "csc242",
+                "csc252",
+                "csc254",
+                "csc280",
+                "csc282"
+            ],
+            "advanced_courses" : [
                 "csc200h",
                 "csc391h",
                 "csc395h"
