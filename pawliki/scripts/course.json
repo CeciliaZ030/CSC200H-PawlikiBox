@@ -109,6 +109,18 @@
           "#2 teaches $1, $2, and $3",
           "Sorry, I don't know"
         ]
+      },
+        {
+        "memorise" : false,
+        "lookup": true,
+        "decomposition_rule" : "what (.*) requirements for bs ",
+        "lookup_rule": "bs_requirements",
+        "reassembly_rules" : [
+          "#2 teaches $1",
+          "#2 teaches $1 and $2",
+          "#2 teaches $1, $2, and $3",
+          "Sorry, I don't know"
+        ]
       }
       ]
     },
