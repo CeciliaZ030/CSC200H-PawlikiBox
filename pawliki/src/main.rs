@@ -24,6 +24,8 @@ fn main() {
     println!("{}\n", pawliki.greet()); //eliza greets the user
 
 
+    let model = word2vec::wordvectors::WordVector::load_from_binary(
+		    "GoogleNews-vectors-negative300-SLIM.bin").expect("Unable to load word vector model");
 
     loop {
         print!("> ");
@@ -37,9 +39,7 @@ fn main() {
         match input.as_ref() {
             "/quit\n" => break,
             _ => {
-                //Insert short delay to make eliza seem like she's thinking
-                thread::sleep(time::Duration::from_millis(300));
-                println!("{}\n", pawliki.respond(&input));
+                println!("{}\n", pawliki.respond(&input, &model));
             }
         }
     }

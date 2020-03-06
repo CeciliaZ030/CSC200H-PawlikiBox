@@ -9,20 +9,22 @@ use std::error::Error;
 use crate::alphabet::Alphabet;
 use crate::script::{Keyword, Reflection, Script, Synonym, Transform};
 use crate::db::{DB, Data};
+use word2vec::wordvectors::WordVector;
 
 #[derive(Default)]
-pub struct Pawliki {
+pub struct Pawliki<'a> {
     script: Script,
     database: DB,
     memory: VecDeque<String>,
     rule_usage: HashMap<String, usize>,
+    fallbacks: Vec<&'a str>,
 }
 
-impl Pawliki {
+impl Pawliki <'_> {
 
 	//Initialize Pawliki to reads his script
-    pub fn from_file(location1: &str, location2: &str) -> Result<Pawliki, Box<dyn Error>> {
-        let e = Pawliki {
+    pub fn from_file<'a>(location1: &'a str, location2: &'a str) -> Result<Pawliki<'a>, Box<dyn Error>>{
+        let mut e = Pawliki {
             script: {
                 Script::from_file(location1)?
             },
@@ -31,8 +33,22 @@ impl Pawliki {
             },
             memory: VecDeque::new(),
             rule_usage: HashMap::new(),
+            fallbacks: Vec::new(),
         };
-
+        e.fallbacks.push("I'm not sure I understand you fully.");
+        e.fallbacks.push("Don't you think that's a little harsh?");
+        e.fallbacks.push("I am only an advisor...");
+        e.fallbacks.push("What does that suggest to you?");
+        e.fallbacks.push("Do you feel strongly about discussing such things?");
+        e.fallbacks.push("That is interesting. Please continue");
+        e.fallbacks.push("Don't you think that's enough advising for today already?");
+        e.fallbacks.push("That is interesting. Please continue");
+        e.fallbacks.push("Tell me more!");
+        e.fallbacks.push("Did you know my son who is a veteran?");
+        e.fallbacks.push("Well, as long as the Corona Virus doesn't get us.");
+        e.fallbacks.push("Tell me more about that.");
+        e.fallbacks.push("Are you worried about that?");
+        e.fallbacks.push("How about we just wait and find out?");
         Ok(e)
     }
 
@@ -54,16 +70,47 @@ impl Pawliki {
         }
     }
 
-    pub fn fallback(&self) -> String {
-        match self.script.rand_fallback() {
-            Some(fallback) => fallback.to_string(),
-            None => {
-                String::from("Go on.") //A fallback for the fallback - har har
+    pub fn fallback(&self, model: &WordVector, input: &str) -> String {  //Choose a fallback based on sentences additive cosine similarity
+        let mut max_fallback_similarity = 0.0;
+        let mut num_words =0.0;
+        let mut current_response = "I couldn't understand a single word of that! (literally)";
+        let mut cosine_words = 0.0;
+        let input_split: Vec<&str> = input.split(" ").collect();
+        for fallback in &self.fallbacks{
+            let mut fallback_similarity = 0.0;
+            let fallback_split: Vec<&str> = fallback.split(" ").collect();
+            for input_word in &input_split {
+                for fallback_word in &fallback_split {
+                    let vec1 = model.get_vector(input_word.as_ref());
+                    let vec2 = model.get_vector(fallback_word.as_ref());
+                    match (vec1, vec2) {
+                        (Some(_), Some(_)) => {
+                                                num_words += 1.0;
+                                                cosine_words = dot_product(vec1.unwrap(), vec2.unwrap());
+                        }
+                        _ => {
+                            cosine_words = 0.0;
+                        }
+                    }
+                    fallback_similarity += cosine_words;
+                }
+            }
+            fallback_similarity = fallback_similarity / num_words;
+            if fallback_similarity > max_fallback_similarity{
+                max_fallback_similarity = fallback_similarity;
+                current_response = fallback;
             }
         }
+        String::from(current_response)
+//        match self.script.rand_fallback() {
+//            Some(fallback) => fallback.to_string(),
+//            None => {
+//                String::from("Go on.") //A fallback for the fallback - har har
+//            }
+//        }
     }
 
-    pub fn respond(&mut self, input: &str) -> String {
+    pub fn respond(&mut self, input: &str, model: &WordVector) -> String {
         //Initialize response
         let mut response: String = format!("");
 
@@ -84,7 +131,7 @@ impl Pawliki {
             response = mem;
         } else {
             println!("Using fallback statement");
-            response = self.fallback();
+            response = self.fallback(&model, input);
         }
 
         response
@@ -502,5 +549,21 @@ fn is_goto(statement: &str) -> Option<String> {
                 .replace(char::is_whitespace, ""),
         ),
         false => None,
+    }
+}
+
+
+pub fn dot_product(arr1: &Vec<f32>, arr2: &Vec<f32>) -> f32 {
+    let mut result: f32 = 0.0;
+    for (elem1, elem2) in arr1.iter().zip(arr2.iter()) {
+        result += elem1 * elem2;
+    }
+    return result;
+}
+
+pub fn vector_norm(vector: &mut Vec<f32>) {
+    let sum = 1.0 / vector.iter().fold(0f32, |sum, &x| sum + (x * x)).sqrt();
+    for x in vector.iter_mut() {
+        (*x) *= sum;
     }
 }
