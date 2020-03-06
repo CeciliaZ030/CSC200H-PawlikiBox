@@ -48,7 +48,6 @@ impl Pawliki <'_> {
         e.fallbacks.push("Tell me more about that .");
         e.fallbacks.push("Are you worried about that ?");
         e.fallbacks.push("How about we just wait and find out ?");
-        e.fallbacks.push("Sometimes it seems like my students aren't even trying to communicate with me and just want me to sign papers...");
         e.fallbacks.push("Maybe you should ask Danielle Vander Horst, I don't think I know the answer ");
         Ok(e)
     }

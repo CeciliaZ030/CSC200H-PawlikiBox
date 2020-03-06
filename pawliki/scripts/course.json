@@ -10,7 +10,7 @@
     "Maybe we could discuss this moreover in our next session?   Goodbye."
   ],
   "fallbacks" : [
-    "These don't do anything, should be removed"
+    "These fallbacks don't do anything, can be removed"
   ],
   "transforms" : [
     { "word" : "dont", "equivalents" : ["don't", "do not"]},
@@ -38,8 +38,10 @@
     { "word" : "family", "equivalents" : ["mother", "mom", "father", "dad", "sister", "brother", "wife", "children", "child"]},
     { "word" : "happy", "equivalents" : ["elated", "glad", "better"]},
     { "word" : "sad", "equivalents" : ["unhappy", "depressed", "sick"]},
-    { "word" :  "prerequisite", "equivalents" :  ["prereq", "required courses", "prep courses", "earlier courses"]},
-    { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]}
+    { "word" :  "prerequisites", "equivalents" :  ["prerequisite","prereq", "prereqs", "required courses", "prep courses", "earlier courses"]},
+    { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
+    { "word" : "is", "equivalents" : ["are", "was", "will", "will be"]},
+    { "word" :  "CSC", "equivalents" :  ["CS"]}
   ],
   "reflections" : [
     { "word" : "am", "inverse" : "are", "twoway" : false},
@@ -81,17 +83,17 @@
           "decomposition_rule" : "what is(.*)prerequisite of(.+)",
           "lookup_rule": "get_prereq",
           "reassembly_rules" : [
-            "The prerequisite of #2 is $1.",
-            "The prerequisites of #2 are $0 and $1.",
-            "The prerequisites of #2 are $0, $1, and $2.",
-            "There is no prerequisite for #2!",
+            "The prerequisite of #3 is $1.",
+            "The prerequisites of #3 are $0 and $1.",
+            "The prerequisites of #3 are $0, $1, and $2.",
+            "There is no prerequisite for #3!",
             "Sorry, I don't know."
           ]
         },
         {
           "memorise" : false,
           "lookup": true,
-          "decomposition_rule" : "what is(.+)about(.*)",
+          "decomposition_rule" : "what is CSC(.*) about(.*)",
           "lookup_rule": "get_description",
           "reassembly_rules" : [
             "#1 is about $2",
@@ -113,7 +115,7 @@
         {
         "memorise" : false,
         "lookup": true,
-        "decomposition_rule" : "what (.*) requirements for bs ",
+        "decomposition_rule" : "what(.*)requirements(.*)bs ",
         "lookup_rule": "bs_requirements",
         "reassembly_rules" : [
           "#2 teaches $1",
@@ -131,7 +133,7 @@
         {
           "memorise" : false,
           "lookup": true,
-          "decomposition_rule" : "who is(.*)instructor(.+)",
+          "decomposition_rule" : "who is(.*)instructor of (.+)",
           "lookup_rule": "get_instructor",
           "reassembly_rules" : [
             "The instructor of #2 is $1.",
@@ -142,7 +144,7 @@
     },
     {
       "key" : "bs",
-      "rank" : 0,
+      "rank" : 2,
       "rules" : [
         {
           "memorise" : false,
@@ -172,7 +174,7 @@
     },
     {
       "key" : "drop",
-      "rank" : 0,
+      "rank" : 2,
       "rules" : [
         {
           "memorise" : false,
@@ -195,7 +197,7 @@
           "decomposition_rule" : "(.*)upper level writing(.*)",
           "lookup_rule": "internship",
           "reassembly_rules" : [
-            "I would recommend taking CSC273w, which is a great two credit writing class that focuses on professional career writing."
+            "Well, you need 2 upper level writing requirements. I would recommend taking CSC273w, which is a great two credit class that focuses on professional career writing."
           ]
         }
       ]
