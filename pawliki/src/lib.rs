@@ -1,8 +1,7 @@
 mod alphabet;
 mod db;
 pub mod script;
-
-
+use rand::prelude::*;
 use regex::{Captures, Regex};
 use std::collections::{HashMap, VecDeque};
 use std::error::Error;
@@ -35,20 +34,22 @@ impl Pawliki <'_> {
             rule_usage: HashMap::new(),
             fallbacks: Vec::new(),
         };
-        e.fallbacks.push("I'm not sure I understand you fully.");
-        e.fallbacks.push("Don't you think that's a little harsh?");
-        e.fallbacks.push("I am only an advisor...");
-        e.fallbacks.push("What does that suggest to you?");
-        e.fallbacks.push("Do you feel strongly about discussing such things?");
-        e.fallbacks.push("That is interesting. Please continue");
-        e.fallbacks.push("Don't you think that's enough advising for today already?");
-        e.fallbacks.push("That is interesting. Please continue");
-        e.fallbacks.push("Tell me more!");
-        e.fallbacks.push("Did you know my son who is a veteran?");
-        e.fallbacks.push("Well, as long as the Corona Virus doesn't get us.");
-        e.fallbacks.push("Tell me more about that.");
-        e.fallbacks.push("Are you worried about that?");
-        e.fallbacks.push("How about we just wait and find out?");
+        e.fallbacks.push("Don't you think that's a little harsh ?");
+        e.fallbacks.push("I am only an adviser .");
+        e.fallbacks.push("What does that suggest to you ?");
+        e.fallbacks.push("Do you feel strongly about discussing such things ?");
+        e.fallbacks.push("That is interesting . Please continue");
+        e.fallbacks.push("Don't you think that's enough advising for today already ?");
+        e.fallbacks.push("That is interesting . Please continue");
+        e.fallbacks.push("Tell me more !");
+        e.fallbacks.push("I don't understand you fully .");
+        e.fallbacks.push("Did you know my son who is a veteran ?");
+        e.fallbacks.push("Well, as long as the Corona Virus doesn't get us .");
+        e.fallbacks.push("Tell me more about that .");
+        e.fallbacks.push("Are you worried about that ?");
+        e.fallbacks.push("How about we just wait and find out ?");
+        e.fallbacks.push("Sometimes it seems like my students aren't even trying to communicate with me and just want me to sign papers...");
+        e.fallbacks.push("Maybe you should ask Danielle Vander Horst, I don't think I know the answer ");
         Ok(e)
     }
 
@@ -72,9 +73,10 @@ impl Pawliki <'_> {
 
     pub fn fallback(&self, model: &WordVector, input: &str) -> String {  //Choose a fallback based on sentences additive cosine similarity
         let mut max_fallback_similarity = 0.0;
-        let mut num_words =0.0;
+        let mut num_words =0.0000001; //avoid divide by 0
         let mut current_response = "I couldn't understand a single word of that! (literally)";
         let mut cosine_words = 0.0;
+        let mut rng : ThreadRng = rand::thread_rng();
         let input_split: Vec<&str> = input.split(" ").collect();
         for fallback in &self.fallbacks{
             let mut fallback_similarity = 0.0;
@@ -87,6 +89,8 @@ impl Pawliki <'_> {
                         (Some(_), Some(_)) => {
                                                 num_words += 1.0;
                                                 cosine_words = dot_product(vec1.unwrap(), vec2.unwrap());
+//                                                println!("{}", cosine_words);
+//                                                println!("{}, {}", input_word, fallback_word)
                         }
                         _ => {
                             cosine_words = 0.0;
@@ -95,11 +99,15 @@ impl Pawliki <'_> {
                     fallback_similarity += cosine_words;
                 }
             }
-            fallback_similarity = fallback_similarity / num_words;
+            let y: f32 = rng.gen_range(0.01, 0.2); //add some noise so fallbacks are not deterministic
+            fallback_similarity = y + fallback_similarity / num_words;
+            println!("fallback: {} similarity: {}", fallback, fallback_similarity);
             if fallback_similarity > max_fallback_similarity{
                 max_fallback_similarity = fallback_similarity;
                 current_response = fallback;
             }
+            fallback_similarity = 0.0;
+            num_words = 0.00000001;
         }
         String::from(current_response)
 //        match self.script.rand_fallback() {
@@ -112,17 +120,22 @@ impl Pawliki <'_> {
 
     pub fn respond(&mut self, input: &str, model: &WordVector) -> String {
         //Initialize response
-        let mut response: String = format!("");
-
-        //Arr of active prases to process and
+        let mut response: String;
+        //Arr of active phrases to process and
         let phrases = get_phrases(&transform(&input.to_lowercase(), &self.script.transforms));
         let (active_phrase, mut keystack) = populate_keystack(phrases, &self.script.keywords);
 
         if let Some(phrase) = active_phrase {
             if let Some(res) = self.get_response(&phrase, &mut keystack) {
                 response = res;
+            }
+            else if let Some(mem) = self.memory.pop_front() {
+            //Attempt to use something in memory, otherwise use fallback trick
+            println!("Using memory");
+            response = mem;
             } else {
-                response = self.fallback();
+                println!("Using fallback statement");
+                response = self.fallback(&model, input);
             }
         }
         else if let Some(mem) = self.memory.pop_front() {
