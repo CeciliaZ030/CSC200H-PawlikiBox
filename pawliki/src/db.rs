@@ -6,8 +6,15 @@ use std::error::Error;
 use std::fs::File;
 use std::path::Path;
 
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Major {
+    pub degree: String,
+    pub premajor_courses: Vec<String>,
+    pub core_courses: Vec<String>,
+    pub advanced_courses: Vec<String>,
+}
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Cluster {
     pub word: String,
     pub inverse: String,
@@ -35,6 +42,7 @@ pub struct Course {
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct DB {
+    pub majors: Vec<Major>,
     pub clusters: Vec<Cluster>,
     pub courses: Vec<Course>,
 }
