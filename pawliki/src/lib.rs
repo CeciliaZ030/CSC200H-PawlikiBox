@@ -72,6 +72,8 @@ impl Pawliki <'_> {
 
     pub fn fallback(&self, model: &WordVector, input: &str) -> String {  //Choose a fallback based on sentences additive cosine similarity
         let mut max_fallback_similarity = 0.0;
+        let mut j =0 ;
+        let mut i =0 ;
         let mut num_words =0.0000001; //avoid divide by 0
         let mut current_response = "I couldn't understand a single word of that! (literally)";
         let mut cosine_words = 0.0;
@@ -81,7 +83,11 @@ impl Pawliki <'_> {
             let mut fallback_similarity = 0.0;
             let fallback_split: Vec<&str> = fallback.split(" ").collect();
             for input_word in &input_split {
+                i+=1;
+                if i % 2 == 0 { continue; }
                 for fallback_word in &fallback_split {
+                    j+=1;
+                    if j % 2 == 0 { continue; }
                     let vec1 = model.get_vector(input_word.as_ref());
                     let vec2 = model.get_vector(fallback_word.as_ref());
                     match (vec1, vec2) {
