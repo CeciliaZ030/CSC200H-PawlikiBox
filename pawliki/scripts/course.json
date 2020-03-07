@@ -40,8 +40,9 @@
     { "word" : "sad", "equivalents" : ["unhappy", "depressed", "sick"]},
     { "word" :  "prerequisites", "equivalents" :  ["prerequisite","prereq", "prereqs", "required courses", "prep courses", "earlier courses"]},
     { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
-    { "word" : "is", "equivalents" : ["are", "was", "will", "will be"]},
-    { "word" :  "CSC", "equivalents" :  ["CS"]}
+    { "word" : "is", "equivalents" : ["are", "was", "will", "will be", "are the"]},
+    { "word" :  "CSC", "equivalents" :  ["CS"]},
+    { "word" : "for", "equivalents" : ["of, to, will, fro, orf, fo, purpose, in order to, before"]}
   ],
   "reflections" : [
     { "word" : "am", "inverse" : "are", "twoway" : false},
