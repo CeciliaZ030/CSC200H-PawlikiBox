@@ -236,7 +236,7 @@
         },
         {
             "id" : "csc214",
-            "name" : "	Mobile App Development",
+            "name" : "Mobile App Development",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "instructor" : "roolfs",
@@ -252,7 +252,7 @@
             "credits" : "4.0",
             "instructor" : "jacobs",
             "prerequisites": [
-                "csc172",
+                "csc172"
             ],
             "description" : "......"
         },
@@ -264,7 +264,7 @@
             "instructor" : "pawlicki",
             "prerequisites": [
                 "mth150",
-                "csc172",
+                "csc172"
             ],
             "description" : "Fundamental concepts and techniques of data mining, including data attributes, data visualization, data pre-processing, mining frequent patterns, association and correlation, classification methods, and cluster analysis. Advanced topics include outlier detection, stream mining, and social media data mining. CSC 440, a graduate-level course, requires additional readings and a course project."
         },
@@ -363,7 +363,7 @@
         },
         {
             "id" : "csc262",
-            "name" : "	Computational Introduction to Statistics",
+            "name" : "Computational Introduction to Statistics",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "instructor" : "ciminelli",

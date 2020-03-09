@@ -34,21 +34,21 @@ impl Pawliki <'_> {
             rule_usage: HashMap::new(),
             fallbacks: Vec::new(),
         };
-        e.fallbacks.push("Don't you think that's a little harsh ?");
-        e.fallbacks.push("I am only an adviser .");
-        e.fallbacks.push("What does that suggest to you ?");
-        e.fallbacks.push("Do you feel strongly about discussing such things ?");
-        e.fallbacks.push("That is interesting . Please continue");
-        e.fallbacks.push("Don't you think that's enough advising for today already ?");
-        e.fallbacks.push("That is interesting . Please continue");
-        e.fallbacks.push("Tell me more !");
-        e.fallbacks.push("I don't understand you fully .");
-        e.fallbacks.push("Did you know my son who is a veteran ?");
-        e.fallbacks.push("Well, as long as the Corona Virus doesn't get us .");
-        e.fallbacks.push("Tell me more about that .");
+        e.fallbacks.push("Don't you think that's a little harsh?");
+        e.fallbacks.push("I am only an adviser.");
+        e.fallbacks.push("What does that suggest to you?");
+        e.fallbacks.push("Do you feel strongly about discussing such things?");
+        e.fallbacks.push("That is interesting. Please continue.");
+        e.fallbacks.push("Don't you think that's enough advising for today already?");
+        e.fallbacks.push("That is interesting. Please continue.");
+        e.fallbacks.push("Tell me more!");
+        e.fallbacks.push("I don't understand you fully.");
+        e.fallbacks.push("Did you know my son who is a veteran?");
+        e.fallbacks.push("Well, as long as the Corona Virus doesn't get us.");
+        e.fallbacks.push("Tell me more about that.");
         e.fallbacks.push("Are you worried about that ?");
-        e.fallbacks.push("How about we just wait and find out ?");
-        e.fallbacks.push("Maybe you should ask Danielle Vander Horst, I don't think I know the answer ");
+        e.fallbacks.push("How about we just wait and find out?");
+        e.fallbacks.push("Maybe you should ask Danielle Vander Horst, I don't think I know the answer. ");
         Ok(e)
     }
 
@@ -237,6 +237,8 @@ println!("assem: {:?}", assem);
             if t.contains("+") {
                 let mut capture: String = captures.get(count + 1).map_or("".to_string(),
                                                            |m| m.as_str().to_string().replace(" ", ""));
+
+                // attemp to find pattern that matches the course id format (i.e. cscxxx)
                 let re = Regex::new(r"[[:alpha:]]{3}[[:digit:]]{3}").unwrap();
                 if re.find(&capture) != None {
                     capture = re.find(&capture).unwrap().as_str().to_string();

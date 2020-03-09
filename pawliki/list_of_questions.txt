@@ -2,7 +2,7 @@ Here is a list of possible questions that can be answered by the chatbot:
 
 - what is the prerequisite of [course_id]?
 - who is the instructor of [course_id]?
-
+- what is 
 
 
 
@@ -11,4 +11,4 @@ Here is a list of possible questions that can be answered by the chatbot:
 Here is a list of questions (ideas) that still need answers for:
 
 - do you recommend bs or ba?
-- 
+-

@@ -27,6 +27,7 @@
     { "word" : "i am", "equivalents" : ["i'm"]},
     { "word" : "alike", "equivalents" : ["same", "identical", "equivalent"]},
     { "word" : "sorry", "equivalents" : ["apologise"]},
+    { "word" :  "csc", "equivalents" :  ["cs"]},
     { "word" : "we would", "equivalents" : ["we'd"]}
   ],
   "synonyms" : [
@@ -41,7 +42,7 @@
     { "word" :  "prerequisites", "equivalents" :  ["prerequisite","prereq", "prereqs", "required courses", "prep courses", "earlier courses"]},
     { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
     { "word" : "is", "equivalents" : ["are", "was", "will", "will be", "are the"]},
-    { "word" :  "CSC", "equivalents" :  ["CS"]},
+    { "word" :  "csc", "equivalents" :  ["cs"]},
     { "word" : "for", "equivalents" : ["of, to, will, fro, orf, fo, purpose, in order to, before"]}
   ],
   "reflections" : [
