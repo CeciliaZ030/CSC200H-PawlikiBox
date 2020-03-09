@@ -423,7 +423,20 @@ println!("dealing with @ rule");
                         let ans = format!("are {}, {}, and {}.", &courses[0].id.to_uppercase(), &courses[1].id.to_uppercase(), &courses[2].id.to_uppercase());
                         temp = temp.replace("@", &ans);
                     } else {
-                        let ans = format!("are {}, {}, and {}, etc.", &courses[0].id.to_uppercase(), &courses[1].id.to_uppercase(), &courses[2].id.to_uppercase());
+                        let mut ans = format!("are ");
+                        for (index, course) in courses.iter().enumerate() {
+                            let course_id = course.id.to_uppercase();
+                            if index < courses.len() - 2 {
+                                ans = ans + &course_id + ", ";
+                            } else if index == courses.len() - 2 {
+                                ans = ans + &course_id + ", and ";
+                            } else {
+                                ans = ans + &course_id + ".";
+                            }
+
+                        }
+                        temp = temp.replace("@", &ans);
+                        // let ans = format!("are {}, {}, and {}, etc.", &courses[0].id.to_uppercase(), &courses[1].id.to_uppercase(), &courses[2].id.to_uppercase());
                     }
                 },
                 Data::Clusters(c) => {},

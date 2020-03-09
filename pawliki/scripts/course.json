@@ -70,7 +70,7 @@
             "Please don't apologise.",
             "Apologies are not necessary.",
             "I've told you that apologies are not required.",
-            "It did not bother me.  Please continue."
+            "It did not bother me. Please continue."
           ]
         }
       ]
@@ -151,10 +151,30 @@
           "#2 teaches $1, $2, and $3",
           "Sorry, I don't know"
         ]
-      }
-      ]
     },
-  {
+    {
+      "memorise" : false,
+      "lookup": true,
+      "decomposition_rule" : "what(.*)spring(.*)",
+      "lookup_rule": "get_spring_courses",
+      "reassembly_rules" : [
+          "The courses offered in spring @",
+          "I don't know any courses offered in spring."
+        ]
+    },
+    {
+      "memorise" : false,
+      "lookup": true,
+      "decomposition_rule" : "what(.*)fall(.*)",
+      "lookup_rule": "get_fall_courses",
+      "reassembly_rules" : [
+          "The courses offered in fall @",
+          "I don't know any courses offered in fall."
+        ]
+    }
+    ]
+    },
+    {
       "key" : "who",
       "rank" : 0,
       "rules" : [
@@ -224,7 +244,7 @@
         }
       ]
     },
-        {
+    {
       "key" : "writing",
       "rank" : 0,
       "rules" : [
@@ -238,6 +258,31 @@
           ]
         }
       ]
-    }
+  },
+  {
+    "key" : "spring",
+    "rank" : 0,
+    "rules" : [
+      {
+        "memorise" : false,
+        "lookup": true,
+        "decomposition_rule" : "what(.*)",
+        "lookup_rule": "get_spring_courses",
+        "reassembly_rules" : [
+          "The courses offered in spring @",
+          "I don't know any courses offered in spring."
+        ]
+      },
+      {
+        "memorise" : false,
+        "lookup": true,
+        "decomposition_rule" : "(.*)",
+        "lookup_rule": "",
+        "reassembly_rules" : [
+          "Well, spring semester mainly offers CS25* courses, which are mostly related to computer system."
+        ]
+      }
+    ]
+  }
   ]
 }

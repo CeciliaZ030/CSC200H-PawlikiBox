@@ -106,6 +106,20 @@ impl DB {
                     ret = Data::None;
                 }
             },
+            "get_fall_courses" => {
+                if let Some(c) = self.get_fall_courses() {
+                    ret = Data::Courses(c);
+                } else {
+                    ret = Data::None;
+                }
+            },
+            "get_spring_courses" => {
+                if let Some(c) = self.get_spring_courses() {
+                    ret = Data::Courses(c);
+                } else {
+                    ret = Data::None;
+                }
+            },
             "get_course_by_id" => {
                 if let Some(c) = self.get_course_by_id(&args[0]) {
                     ret = Data::ACourse(c);
@@ -192,6 +206,30 @@ impl DB {
 
     pub fn get_all_courses(&self) -> Option<Vec<Course>> {
         Some(self.courses.clone())
+    }
+
+    pub fn get_fall_courses(&self) -> Option<Vec<Course>> {
+        let mut res: Option<Vec<Course>> = None;
+        let mut temp: Vec<Course> = Vec::new();
+        for course in self.courses.clone() {
+            if course.term.fall {
+                temp.push(course)
+            }
+        }
+        res = Some(temp.clone());
+        res
+    }
+
+    pub fn get_spring_courses(&self) -> Option<Vec<Course>> {
+        let mut res: Option<Vec<Course>> = None;
+        let mut temp: Vec<Course> = Vec::new();
+        for course in self.courses.clone() {
+            if course.term.spring {
+                temp.push(course)
+            }
+        }
+        res = Some(temp.clone());
+        res
     }
 
     pub fn get_description_by_id(&self, id: &str) -> Option<String> {
