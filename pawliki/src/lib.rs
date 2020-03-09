@@ -117,7 +117,9 @@ impl Pawliki <'_> {
 //        }
     }
 
-    pub fn respond(&mut self, input: &str, model: &WordVector) -> String {
+    // fallback param (&mut self, input: &str, model: &WordVector)
+
+    pub fn respond(&mut self, input: &str) -> String {
         //Initialize response
         let mut response: String;
         //Arr of active phrases to process and
@@ -134,7 +136,8 @@ impl Pawliki <'_> {
             response = mem;
             } else {
                 println!("Using fallback statement");
-                response = self.fallback(&model, input);
+                // response = self.fallback(&model, input);
+                response = format!("Go on");
             }
         }
         else if let Some(mem) = self.memory.pop_front() {
@@ -143,7 +146,8 @@ impl Pawliki <'_> {
             response = mem;
         } else {
             println!("Using fallback statement");
-            response = self.fallback(&model, input);
+            // response = self.fallback(&model, input);
+            response = format!("Go on");
         }
 
         response
@@ -166,7 +170,6 @@ println!("rule: {:?}", r.decomposition_rule);
                 let regexes = permutations(&r.decomposition_rule, &self.script.synonyms);
 
                 for re in regexes {
-// println!("re: {:?}", re);
                     if let Some(cap) = re.captures(phrase) {
 println!("cap: {:?}", cap);
 
@@ -264,13 +267,13 @@ println!("params: {:?}", params);
         //(e.g. deconstruction rules could share similar looking assembly rules)
         for (index, rule) in rules.iter().enumerate() {
             // find the number of "$" appears in the rule
-            let number_of_param = rule.matches("$").count();
+            // let number_of_param = rule.matches("$").count();
 
             let key = String::from(id) + rule;
+println!("key {:?}", key);
+
             match data {
                 Data::None => {
-
-                    // if there is no data, we should only use the last rule
                     if index == rules.len() - 1 {
                         best_rule = Some(rule.clone());
                         break;
@@ -278,29 +281,73 @@ println!("params: {:?}", params);
                         continue;
                     }
                 },
-                Data::ACourse(c) => {
-                },
-                Data::ACluster(c) => {
-                },
-                Data::Instructor(s) => {
-                    best_rule = Some(rule.clone());
-                    break;
-                },
-                Data::Description(d) => {
-                    best_rule = Some(rule.clone());
-                    break;
-                }
-                Data::Courses(courses) => {
-                    if courses.len() != number_of_param {
-                        continue;
+                Data::Number(n) => {
+                    println!("n: {:?}", n);
+                    let num_of_prereq: u16 = n.parse().unwrap();
+                    if num_of_prereq > 0 {
+                        best_rule = Some(rule.clone());
+                        break;
+                    } else {
+                        if index == rules.len() - 1 {
+                            best_rule = Some(rule.clone());
+                        } else {
+                            continue;
+                        }
                     }
-                    best_rule = Some(rule.clone());
-                    break;
                 },
-                Data::Clusters(courses) => {
+                Data::ACourse(c) => {},
+                Data::ACluster(c) => {},
+                Data::Instructor(s) => {},
+                Data::Description(d) => {},
+                Data::Courses(courses) => {
+                    if rule.contains("@") && courses.len() > 0 {
+                        best_rule = Some(rule.clone());
+                        break;
+                    } else {
+                        if index == rules.len() - 1 {
+                            best_rule = Some(rule.clone());
+                        } else {
+                            continue;
+                        }
+                    }
                 },
-
+                Data::Clusters(clusters) => {},
             }
+
+            // match data {
+            //     Data::None => {
+            //
+            //         // if there is no data, we should only use the last rule
+            //         if index == rules.len() - 1 {
+            //             best_rule = Some(rule.clone());
+            //             break;
+            //         } else {
+            //             continue;
+            //         }
+            //     },
+            //     Data::ACourse(c) => {
+            //     },
+            //     Data::ACluster(c) => {
+            //     },
+            //     Data::Instructor(s) => {
+            //         best_rule = Some(rule.clone());
+            //         break;
+            //     },
+            //     Data::Description(d) => {
+            //         best_rule = Some(rule.clone());
+            //         break;
+            //     }
+            //     Data::Courses(courses) => {
+            //         if courses.len() != number_of_param {
+            //             continue;
+            //         }
+            //         best_rule = Some(rule.clone());
+            //         break;
+            //     },
+            //     Data::Clusters(courses) => {
+            //     },
+            //
+            // }
             match self.rule_usage.contains_key(&key) {
                 true => {
                     //If it has already been used, get its usage count
@@ -355,6 +402,34 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
         // store the current word
         let mut temp: String = String::from(w);
 
+        // assemeble the case when the rule contains @ symbol
+        if w.contains("@") {
+println!("dealing with @ rule");
+            match data {
+                Data::None => {},
+                Data::Number(n) => {},
+                Data::ACourse(c) => {},
+                Data::ACluster(c) => {},
+                Data::Instructor(s) => {},
+                Data::Description(d) => {},
+                Data::Courses(courses) => {
+                    if courses.len() == 1 {
+                        let ans = format!("is {}.", &courses[0].id.to_uppercase());
+                        temp = temp.replace("@", &ans);
+                    } else if courses.len() == 2 {
+                        let ans = format!("are {} and {}.", &courses[0].id.to_uppercase(), &courses[1].id.to_uppercase());
+                        temp = temp.replace("@", &ans);
+                    } else if courses.len() == 3 {
+                        let ans = format!("are {}, {}, and {}.", &courses[0].id.to_uppercase(), &courses[1].id.to_uppercase(), &courses[2].id.to_uppercase());
+                        temp = temp.replace("@", &ans);
+                    } else {
+                        let ans = format!("are {}, {}, and {}, etc.", &courses[0].id.to_uppercase(), &courses[1].id.to_uppercase(), &courses[2].id.to_uppercase());
+                    }
+                },
+                Data::Clusters(c) => {},
+            }
+        }
+
         if w.contains("#") {
             let scrubbed = alphabet::ALPHANUMERIC.scrub(w);
             if let Ok(n) = scrubbed.parse::<usize>() {
@@ -379,6 +454,9 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
             if let Ok(_n) = scrubbed.parse::<usize>() {
                 match data {
                     Data::None => {},
+                    Data::Number(n) => {
+                        temp = temp.replace(&scrubbed, &n).replace("$", "");
+                    }
                     Data::ACourse(c) => {
                         // temp = temp.replace(&scrubbed, &c[counter].id).to_uppercase().replace("$", "");
                     },

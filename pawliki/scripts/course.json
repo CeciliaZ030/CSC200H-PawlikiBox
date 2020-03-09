@@ -27,7 +27,7 @@
     { "word" : "i am", "equivalents" : ["i'm"]},
     { "word" : "alike", "equivalents" : ["same", "identical", "equivalent"]},
     { "word" : "sorry", "equivalents" : ["apologise"]},
-    { "word" :  "csc", "equivalents" :  ["cs"]},
+    { "word" : "prerequisite", "equivalents" : ["prerequisites"]},
     { "word" : "we would", "equivalents" : ["we'd"]}
   ],
   "synonyms" : [
@@ -75,6 +75,32 @@
         }
       ]
     },
+    {
+        "key" : "prerequisite",
+        "rank" : 2,
+        "rules" : [
+            {
+                "memorise" : false,
+                "lookup" : true,
+                "decomposition_rule" : "what is(.*)prerequisite of (.+)?",
+                "lookup_rule" : "get_prereq",
+                "reassembly_rules" : [
+                    "The prerequisites of #2 @",
+                    "There is no prerequisite for #2!"
+                ]
+            },
+            {
+                "memorise" : false,
+                "lookup" : true,
+                "decomposition_rule" : "how many prerequisite(.+)",
+                "lookup_rule" : "prereq_count",
+                "reassembly_rules" : [
+                    "#1 has $0 prerequisite(s).",
+                    "There is no prerequisite for #1!"
+                ]
+            }
+        ]
+    },
    {
       "key" : "what",
       "rank" : 0,
@@ -85,10 +111,10 @@
           "decomposition_rule" : "what is(.*)prerequisite of(.+)",
           "lookup_rule": "get_prereq",
           "reassembly_rules" : [
-            "The prerequisite of #3 is $1.",
-            "The prerequisites of #3 are $0 and $1.",
-            "The prerequisites of #3 are $0, $1, and $2.",
-            "There is no prerequisite for #3!",
+            "The prerequisite of #2 is $1.",
+            "The prerequisites of #2 are $0 and $1.",
+            "The prerequisites of #2 are $0, $1, and $2.",
+            "There is no prerequisite for #2!",
             "Sorry, I don't know."
           ]
         },
@@ -152,11 +178,20 @@
           "memorise" : false,
           "lookup": false,
           "decomposition_rule" : "((.*)bs or ba(.*))|((.*)ba or bs(.*))",
-          "lookup_rule": "bs",
+          "lookup_rule": "",
           "reassembly_rules" : [
             "Personally, I think you should get a BS, but are you doing any other majors?"
           ]
-        }
+      },
+      {
+        "memorise" : false,
+        "lookup": false,
+        "decomposition_rule" : "(.*)requirements(.*)bs(.*)",
+        "lookup_rule": "",
+        "reassembly_rules" : [
+            "The requirements for bs @."
+        ]
+      }
       ]
     },
     {

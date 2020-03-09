@@ -49,6 +49,7 @@ pub struct DB {
 
 #[derive(Debug)]
 pub enum Data {
+    Number(String),
     ACourse(Course),
     ACluster(Cluster),
     Instructor(String),
@@ -91,6 +92,13 @@ impl DB {
                     ret = Data::None;
                 }
             },
+            "prereq_count" => {
+                if let Some(n) = self.count_prerequisites(&args[0]) {
+                    ret = Data::Number(n);
+                } else {
+                    ret = Data::None;
+                }
+            }
             "get_all_courses" => {
                 if let Some(c) = self.get_all_courses() {
                     ret = Data::Courses(c);
@@ -154,6 +162,14 @@ impl DB {
                 }
                 res = Some(temp.clone());
             }
+        }
+        res
+    }
+
+    pub fn count_prerequisites(&self, id: &str) -> Option<String> {
+        let mut res: Option<String> = None;
+        if let Some(courses) = self.get_prerequisites(&id) {
+            res = Some(courses.len().to_string());
         }
         res
     }
