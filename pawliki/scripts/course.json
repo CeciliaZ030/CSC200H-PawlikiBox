@@ -27,6 +27,7 @@
     { "word" : "i am", "equivalents" : ["i'm"]},
     { "word" : "alike", "equivalents" : ["same", "identical", "equivalent"]},
     { "word" : "sorry", "equivalents" : ["apologise"]},
+    { "word" : "prerequisite", "equivalents" : ["prerequisites"]},
     { "word" : "we would", "equivalents" : ["we'd"]}
   ],
   "synonyms" : [
@@ -41,7 +42,7 @@
     { "word" :  "prerequisites", "equivalents" :  ["prerequisite","prereq", "prereqs", "required courses", "prep courses", "earlier courses"]},
     { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
     { "word" : "is", "equivalents" : ["are", "was", "will", "will be", "are the"]},
-    { "word" :  "CSC", "equivalents" :  ["CS"]},
+    { "word" :  "csc", "equivalents" :  ["cs"]},
     { "word" : "for", "equivalents" : ["of, to, will, fro, orf, fo, purpose, in order to, before"]}
   ],
   "reflections" : [
@@ -69,10 +70,36 @@
             "Please don't apologise.",
             "Apologies are not necessary.",
             "I've told you that apologies are not required.",
-            "It did not bother me.  Please continue."
+            "It did not bother me. Please continue."
           ]
         }
       ]
+    },
+    {
+        "key" : "prerequisite",
+        "rank" : 2,
+        "rules" : [
+            {
+                "memorise" : false,
+                "lookup" : true,
+                "decomposition_rule" : "what is(.*)prerequisite of (.+)?",
+                "lookup_rule" : "get_prereq",
+                "reassembly_rules" : [
+                    "The prerequisites of #2 @",
+                    "There is no prerequisite for #2!"
+                ]
+            },
+            {
+                "memorise" : false,
+                "lookup" : true,
+                "decomposition_rule" : "how many prerequisite(.+)",
+                "lookup_rule" : "prereq_count",
+                "reassembly_rules" : [
+                    "#1 has $0 prerequisite(s).",
+                    "There is no prerequisite for #1!"
+                ]
+            }
+        ]
     },
    {
       "key" : "what",
@@ -84,10 +111,10 @@
           "decomposition_rule" : "what is(.*)prerequisite of(.+)",
           "lookup_rule": "get_prereq",
           "reassembly_rules" : [
-            "The prerequisite of #3 is $1.",
-            "The prerequisites of #3 are $0 and $1.",
-            "The prerequisites of #3 are $0, $1, and $2.",
-            "There is no prerequisite for #3!",
+            "The prerequisite of #2 is $1.",
+            "The prerequisites of #2 are $0 and $1.",
+            "The prerequisites of #2 are $0, $1, and $2.",
+            "There is no prerequisite for #2!",
             "Sorry, I don't know."
           ]
         },
@@ -124,10 +151,30 @@
           "#2 teaches $1, $2, and $3",
           "Sorry, I don't know"
         ]
-      }
-      ]
     },
-  {
+    {
+      "memorise" : false,
+      "lookup": true,
+      "decomposition_rule" : "what(.*)spring(.*)",
+      "lookup_rule": "get_spring_courses",
+      "reassembly_rules" : [
+          "The courses offered in spring @",
+          "I don't know any courses offered in spring."
+        ]
+    },
+    {
+      "memorise" : false,
+      "lookup": true,
+      "decomposition_rule" : "what(.*)fall(.*)",
+      "lookup_rule": "get_fall_courses",
+      "reassembly_rules" : [
+          "The courses offered in fall @",
+          "I don't know any courses offered in fall."
+        ]
+    }
+    ]
+    },
+    {
       "key" : "who",
       "rank" : 0,
       "rules" : [
@@ -151,11 +198,20 @@
           "memorise" : false,
           "lookup": false,
           "decomposition_rule" : "((.*)bs or ba(.*))|((.*)ba or bs(.*))",
-          "lookup_rule": "bs",
+          "lookup_rule": "",
           "reassembly_rules" : [
             "Personally, I think you should get a BS, but are you doing any other majors?"
           ]
-        }
+      },
+      {
+        "memorise" : false,
+        "lookup": false,
+        "decomposition_rule" : "(.*)requirements(.*)bs(.*)",
+        "lookup_rule": "",
+        "reassembly_rules" : [
+            "The requirements for bs @."
+        ]
+      }
       ]
     },
     {
@@ -188,7 +244,7 @@
         }
       ]
     },
-        {
+    {
       "key" : "writing",
       "rank" : 0,
       "rules" : [
@@ -202,6 +258,31 @@
           ]
         }
       ]
-    }
+  },
+  {
+    "key" : "spring",
+    "rank" : 0,
+    "rules" : [
+      {
+        "memorise" : false,
+        "lookup": true,
+        "decomposition_rule" : "what(.*)",
+        "lookup_rule": "get_spring_courses",
+        "reassembly_rules" : [
+          "The courses offered in spring @",
+          "I don't know any courses offered in spring."
+        ]
+      },
+      {
+        "memorise" : false,
+        "lookup": true,
+        "decomposition_rule" : "(.*)",
+        "lookup_rule": "",
+        "reassembly_rules" : [
+          "Well, spring semester mainly offers CS25* courses, which are mostly related to computer system."
+        ]
+      }
+    ]
+  }
   ]
 }

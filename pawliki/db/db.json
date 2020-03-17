@@ -17,7 +17,7 @@
                 "csc282"
             ],
             "advanced_courses" : [
-                ""
+                "csc2xx"
             ]
         },
         {
@@ -73,90 +73,110 @@
             "name" : "discrete math",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
-            "instructor" : "xxx",
+            "instructor" : "mkrtchyan",
             "prerequisites": [
                 ""
             ],
-            "description" : "An introduction to discrete mathematics"
+            "description" : "Logic, functions, algorithms, mathematical reasoning, mathematical induction, recurrence relations, techniques of counting, equivalence relations, graphs, trees. Required for Computer Science majors."
         },
         {
             "id" : "mth161",
-            "name" : "calculus 1",
+            "name" : "calculus I",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
-            "instructor" : "xxx",
+            "instructor" : "alevy",
             "prerequisites": [
                 ""
             ],
-            "description" : "An introduction to limits and derivatives"
+            "description" : "Elementary real functions: algebraic, trigonometric, exponential, their inverses, graphs, derivatives and integrals; limits, l'Hopital's rules, Mean value theorem, maxima and minima, curve plotting. The fundamental theorem of calculus, with geometric and physical applications, substitution rule for integration. This course uses the Tuesday/Thursday 08:00-09:30am Common Exam time. Students can drop from MTH 161 to MTH 141 up to one week following the first exam in MTH 161. "
         },
         {
             "id" : "mth162",
-            "name" : "calculus 2",
+            "name" : "calculus II",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
-            "instructor" : "xxx",
+            "instructor" : "ravenel",
             "prerequisites": [
                 "mth161"
             ],
-            "description" : "An introduction to integral and sequence and series."
+            "description" : "Techniques of integration, improper integrals, applications to geometry and physics. Infinite series, Taylor series in one variable. Plane curves, parametric equations, polar coordinates, arc length. NOTE: Either MTH 164 or 165 can be taken after MTH 162 or 143. This course uses the Tuesday/Thursday 08:00-09:30am Common Exam time. Students can drop from MTH 162 to MTH 142 up to one week following the first exam in MTH 162. Interested students should speak with their professor for details."
         },
         {
             "id" : "mth164",
             "name" : "Multivariate Calculus",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
-            "instructor" : "xxx",
+            "instructor" : "salur",
             "prerequisites": [
-                "mth161",
                 "mth162"
             ],
-            "description" : "An introduction to vector calculus."
+            "description" : "Equations of lines and planes, quadric surfaces, space curves, partial derivatives, linear approximation, directional derivatives, extrema, Lagrange multipliers, double/triple integrals including cylindrical and spherical coordinates. Line, surface, and volume integrals, divergence theorem, Stokes' theorem."
         },
         {
             "id" : "mth165",
-            "name" : "linear algebra with differential equations",
+            "name" : "Linear Algebra with Differential Equations",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
-            "instructor" : "xxx",
+            "instructor" : "pakianathan",
             "prerequisites": [
-                "mth161",
                 "mth162"
             ],
-            "description" : "An introduction to linear algebra and differential equations."
+            "description" : "Matrix algebra and inverses, Gaussian elimination, determinants, vector spaces, eigenvalue problems. First order differential equations, linear second order differential equations with constant coefficients, undetermined coefficients, linear systems of differential equations. Applications to physical, engineering, and life sciences. "
+        },
+        {
+            "id" : "csc108",
+            "name" : "Technical Computing",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "raqueno",
+            "prerequisites": [
+                ""
+            ],
+            "description" : "An introduction to computer applications in business and graphic design. Students will begin by learning the basics and some advanced functions of Microsoft Word, Excel, and Powerpoint. The class then progresses through the Adobe graphic design applications Photoshop, After Effects, and Flash. In learning these applications, students are introduced to topics such as computer graphics, file compression, and animation."
+        },
+        {
+            "id" : "csc131",
+            "name" : "Recreational Graphics",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "pawlicki",
+            "prerequisites": [
+                ""
+            ],
+            "description" : "A hands on introduction to 3D computer graphics and animation techniques taught from a user point of view. Topics include 3D modeling, animation, and simulation."
         },
         {
             "id" : "csc161",
-            "name" : "INTRO TO PROGRAMMING",
+            "name" : "Intro to Programming",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "prerequisites": [
                 ""
             ],
-            "instructor" : "SARKIS R",
-            "description" : "Hands-on introduction to programming using the Python programming language. Covers basic programming constructs including statements, expressions, variables, conditionals, iteration, and functions, as well as object-oriented programming and graphics. Recommended for non-majors, and/or students with less math and science background. Lab and workshop required."
+            "instructor" : "sarkis",
+            "description" : "Hands-on introduction to programming using the Python programming language. Covers basic programming constructs including statements, expressions, variables, conditionals, iteration, and functions, as well as object-oriented programming and graphics. Recommended for non-majors, and/or students with less math and science background."
         },
         {
             "id" : "csc170",
-            "name" : "Web Programming",
+            "name" : "Intro to Web Development",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "instructor" : "kostin",
             "prerequisites": [
                 ""
             ],
-            "description" : "......"
+            "description" : "An introduction to the World Wide Web and related technologies. Topics include HTML5 and CSS3, Progressive Enhancement, and Web page design. Emphasis is placed on fundamentals, industry standards and best practices. Additional topics include: web site construction techniques, mobile design issues, and Search Engine Optimization (SEO). Programming with JavaScript will be introduced."
         },
         {
             "id" : "csc171",
-            "name" : "INTRO TO COMPUTER SCIENCE",
+            "name" : "Intro to Computer Science",
             "term" : {"spring": true, "fall" : true},
             "credits" : "4.0",
             "prerequisites": [
                 ""
             ],
             "instructor" : "purtee",
-            "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science. Required for all CSC majors."
+            "description" : "Hands-on introduction to programming using the Java programming language. Teaches fundamentals of programming and more advanced topics. Emphasizes algorithmic thinking and computational problem solving and provides an introduction to the concepts and methods used in Computer Science."
         },
         {
             "id" : "csc172",
@@ -167,7 +187,7 @@
             "prerequisites": [
                 "csc171"
             ],
-            "description" : "......"
+            "description" : "Abstract data types (e.g., sets, mappings, and graphs) and their implementation as concrete data structures in Java. Analysis of the running times of programs operating on such data structures, and basic techniques for program design, analysis, and proof of correctness (e.g., induction and recursion)."
         },
         {
             "id" : "csc173",
@@ -179,7 +199,7 @@
                 "mth150",
                 "csc172"
             ],
-            "description" : "......"
+            "description" : "Investigation of several formal systems influential in computer science, and also some of their applications (e.g. inspiring and providing the foundation for a computer programming style, or providing the basis for solving important practical problems like communications protocols, compiling, systems analysis, graphics ...)"
         },
         {
             "id" : "csc174",
@@ -193,6 +213,62 @@
             "description" : "......"
         },
         {
+            "id" : "csc210",
+            "name" : "Web Programming",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "dickinson",
+            "prerequisites": [
+                "csc172"
+            ],
+            "description" : "The World Wide Web was born around 1990, so it is not much older than most of you. In this course, we will follow the growth of the Web from its toddler years, to early childhood, to its turbulent pre-teen and teenage years, and finally as it begins to mature as a young adult. Along this journey, you will learn influential Web technologies such as HTTP, HTML, JavaScript, CSS, the LAMP stack, XML, JSON, Ajax, WebSockets, and modern MVC frameworks. Even though you will be doing a lot of programming in this course, its purpose is not to teach you to become an expert in any particular language or framework. Web technologies change at a blistering pace, so specifics quickly get outdated. However, once you take this course and understand the fundamentals, you will be able to easily pick up new technologies on the fly."
+        },
+        {
+            "id" : "csc211",
+            "name" : "Introduction to HCI",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "hoque",
+            "prerequisites": [
+                "csc172"
+            ],
+            "description" : "The goal of this course is to provide an introductory overview of the concepts, principles, methods and special topics of Human-Computer Interaction (HCI). This course will help students to build a frame of reference of HCI approaches and apply them in conducting design practices for real-world problems. This course contains a combination of lectures, seminars and group projects. The lectures will cover origins of HCI and interaction design, user-centered design methods, usability evaluation and user experience. The seminars will be a combination of guest lecturers and student-led discussions to introduce special topics in HCI, which may include Augmented and Virtual Reality, Tangible User Interface, Human-Robot Interaction, learning technologies, and assistive technologies. The group project will take place throughout the course and provide an opportunity for students to apply and reflect on HCI methods and user-centered design processes through contextual inquiry, prototyping, evaluation, iteration and presentation. "
+        },
+        {
+            "id" : "csc214",
+            "name" : "Mobile App Development",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "roolfs",
+            "prerequisites": [
+                "csc172"
+            ],
+            "description" : "Coursework covers user interface designs and functional algorithms for mobile devices (iOS fall, Android spring) and unique user interactions using multi-touch technologies. Object-oriented design using model-view-controller paradigm, memory management. Other topics include: object-oriented database API, animation, multi-threading and performance considerations"
+        },
+        {
+            "id" : "csc229",
+            "name" : "Comp Models of Perception and Cognitive",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "jacobs",
+            "prerequisites": [
+                "csc172"
+            ],
+            "description" : "......"
+        },
+        {
+            "id" : "csc240",
+            "name" : "Data Mining",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "pawlicki",
+            "prerequisites": [
+                "mth150",
+                "csc172"
+            ],
+            "description" : "Fundamental concepts and techniques of data mining, including data attributes, data visualization, data pre-processing, mining frequent patterns, association and correlation, classification methods, and cluster analysis. Advanced topics include outlier detection, stream mining, and social media data mining. CSC 440, a graduate-level course, requires additional readings and a course project."
+        },
+        {
             "id" : "csc242",
             "name" : "Introduction to Artificial Intelligence",
             "term" : {"spring": true, "fall" : true},
@@ -203,7 +279,29 @@
                 "csc172",
                 "csc173"
             ],
-            "description" : "......"
+            "description" : "Introduces fundamental principles and techniques from Artificial Intelligence, including heuristic search, automated reasoning, handling uncertainty, and machine learning, to prepare students for advanced AI courses."
+        },
+        {
+            "id" : "csc244",
+            "name" : "Knowledge Representation and Reasoning in AI",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "schubert",
+            "prerequisites": [
+                "csc242"
+            ],
+            "description" : "The logical foundations of AI including first-order logic, reasoning, knowledge representation, planning, and probabilistic inference."
+        },
+        {
+            "id" : "csc248",
+            "name" : "Statistical Speech and Language Processing",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "gildea",
+            "prerequisites": [
+                "csc242"
+            ],
+            "description" : "An introduction to statistical natural language processing and automatic speech recognition techniques. This course presents the theory and practice behind the recently developed language processing technologies that enable applications such as speech-driven dictation systems, document search engines (e.g., finding web pages) and automatic machine translation. Students taking this course at the 400 level will be required to complete additional readings and/or assignments."
         },
         {
             "id" : "csc252",
@@ -215,7 +313,7 @@
                 "mth150",
                 "csc172"
             ],
-            "description" : "......"
+            "description" : "Introduction to computer architecture and the layering of hardware/software systems. Topics include instruction set design; logical building blocks; computer arithmetic; processor organization; the memory hierarchy (registers, caches, main memory, and secondary storage); I/Obuses, devices, and interrupts; microcode and assembly language; virtual machines; the roles of the assembler, linker, compiler, and operating system; technological trends and the future of computing hardware. Several programming assignments required."
         },
         {
             "id" : "csc254",
@@ -227,7 +325,53 @@
                 "csc173",
                 "csc252"
             ],
-            "description" : "......"
+            "description" : "Design and implementation of programming languages, with an emphasis on imperative languages and on implementation tradeoffs. In-depth examination of 'how programming languages work.' Topics include fundamental language concepts (names, values, types, abstraction, control flow); compilation and interpretation (syntactic and semantic analysis, code generation and optimization); major language paradigms (imperative, object-oriented, functional, logic-based, concurrent). Course projects include assignments in several different languages, with an emphasis on compilation issues."
+        },
+        {
+            "id" : "csc256",
+            "name" : "Operating Systems",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "criswell",
+            "prerequisites": [
+                "csc252"
+            ],
+            "description" : "Principles of operating system design, explored within the practical context of traditional, embedded, distributed, and real-time operating systems. Topics include device management, process management, scheduling, synchronization principles, memory management and virtual memory, file management and remote files, protection and security, fault tolerance, networks, and distributed computing. CSC 456, a graduate-level course, requires additional readings and assignments."
+        },
+        {
+            "id" : "csc257",
+            "name" : "Computer Networks",
+            "term" : {"spring": false, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "purtee",
+            "prerequisites": [
+                "csc252"
+            ],
+            "description" : "Introduction to computer networks and computer communication: Architecture and Protocols:. Design of protocols for error recovery, reliable delivery, routing and congestion control. Store-and-forward networks, satellite networks, local area networks and locally distributed systems. Case studies of networks, protocols and protocol families. Emphasis on software design issues in computer communication."
+        },
+        {
+            "id" : "csc261",
+            "name" : "Database Systems",
+            "term" : {"spring": true, "fall" : false},
+            "credits" : "4.0",
+            "instructor" : "zhupa",
+            "prerequisites": [
+                "mth150",
+                "csc172"
+            ],
+            "description" : "This course presents the fundamental concepts of database design and use. It provides a study of data models, data description languages, and query facilities including relational algebra and SQL, data normalization, transactions and their properties, physical data organization and indexing, security issues and object databases. It also looks at the new trends in databases. The knowledge of the above topics will be applied in the design and implementation of a database application using a target database management system as part of a semester-long group project."
+        },
+        {
+            "id" : "csc262",
+            "name" : "Computational Introduction to Statistics",
+            "term" : {"spring": true, "fall" : true},
+            "credits" : "4.0",
+            "instructor" : "ciminelli",
+            "prerequisites": [
+                "mth150",
+                "mth161"
+            ],
+            "description" : "This course will cover foundational concepts in descriptive analyses, probability, and statistical inference."
         },
         {
             "id" : "csc280",
@@ -250,7 +394,7 @@
                 "mth150",
                 "csc172"
             ],
-            "description" : "......"
+            "description" : "How does one design programs and ascertain their efficiency? Divide-and-conquer techniques, string processing, graph algorithms, mathematical algorithms. Advanced data structures such as balanced tree schemes. Introduction to NP-completeness and intractable combinatorial search, optimization, and decision problems."
         }
     ]
 }

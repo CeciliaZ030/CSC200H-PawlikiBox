@@ -24,8 +24,7 @@ fn main() {
     println!("{}\n", pawliki.greet()); //eliza greets the user
 
 
-    let model = word2vec::wordvectors::WordVector::load_from_binary(
-		    "GoogleNews-vectors-negative300-SLIM.bin").expect("Unable to load word vector model");
+    // let model = word2vec::wordvectors::WordVector::load_from_binary("GoogleNews-vectors-negative300-SLIM.bin").expect("Unable to load word vector model");
 
     loop {
         print!("> ");
@@ -39,7 +38,7 @@ fn main() {
         match input.as_ref() {
             "/quit\n" => break,
             _ => {
-                println!("{}\n", pawliki.respond(&input, &model));
+                println!("{}\n", pawliki.respond(&input));
             }
         }
     }

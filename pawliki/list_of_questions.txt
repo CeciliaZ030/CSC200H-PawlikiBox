@@ -1,0 +1,21 @@
+Here is a list of possible questions that can be answered by the chatbot:
+
+- what is the prerequisite of [course_id]?
+- who is the instructor of [course_id]?
+- what is the instructor of [course_id]?
+
+
+
+
+
+Here is a list of questions (ideas) that still need answers for:
+
+- do you recommend bs or ba?
+-
+
+
+
+
+
+TODO:
+need to fix transform issue (e.g. csc172 -> cscc172, 'cs' is replaced by 'csc')

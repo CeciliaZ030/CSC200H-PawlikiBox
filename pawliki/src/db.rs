@@ -49,6 +49,7 @@ pub struct DB {
 
 #[derive(Debug)]
 pub enum Data {
+    Number(String),
     ACourse(Course),
     ACluster(Cluster),
     Instructor(String),
@@ -91,8 +92,29 @@ impl DB {
                     ret = Data::None;
                 }
             },
+            "prereq_count" => {
+                if let Some(n) = self.count_prerequisites(&args[0]) {
+                    ret = Data::Number(n);
+                } else {
+                    ret = Data::None;
+                }
+            }
             "get_all_courses" => {
                 if let Some(c) = self.get_all_courses() {
+                    ret = Data::Courses(c);
+                } else {
+                    ret = Data::None;
+                }
+            },
+            "get_fall_courses" => {
+                if let Some(c) = self.get_fall_courses() {
+                    ret = Data::Courses(c);
+                } else {
+                    ret = Data::None;
+                }
+            },
+            "get_spring_courses" => {
+                if let Some(c) = self.get_spring_courses() {
                     ret = Data::Courses(c);
                 } else {
                     ret = Data::None;
@@ -158,6 +180,14 @@ impl DB {
         res
     }
 
+    pub fn count_prerequisites(&self, id: &str) -> Option<String> {
+        let mut res: Option<String> = None;
+        if let Some(courses) = self.get_prerequisites(&id) {
+            res = Some(courses.len().to_string());
+        }
+        res
+    }
+
     pub fn get_course_by_id(&self, id: &str) -> Option<Course> {
         Some(self.courses.iter().find(|ref c| c.id == id)?.clone())
     }
@@ -176,6 +206,30 @@ impl DB {
 
     pub fn get_all_courses(&self) -> Option<Vec<Course>> {
         Some(self.courses.clone())
+    }
+
+    pub fn get_fall_courses(&self) -> Option<Vec<Course>> {
+        let mut res: Option<Vec<Course>> = None;
+        let mut temp: Vec<Course> = Vec::new();
+        for course in self.courses.clone() {
+            if course.term.fall {
+                temp.push(course)
+            }
+        }
+        res = Some(temp.clone());
+        res
+    }
+
+    pub fn get_spring_courses(&self) -> Option<Vec<Course>> {
+        let mut res: Option<Vec<Course>> = None;
+        let mut temp: Vec<Course> = Vec::new();
+        for course in self.courses.clone() {
+            if course.term.spring {
+                temp.push(course)
+            }
+        }
+        res = Some(temp.clone());
+        res
     }
 
     pub fn get_description_by_id(&self, id: &str) -> Option<String> {
