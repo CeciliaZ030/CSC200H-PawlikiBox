@@ -57,9 +57,7 @@ pub struct Script {
 }
 
 impl Script {
-    /// Will load an ELIZA json script from the file system.
-    ///
-    /// Will return `Err` if the script at the specified location is invalid or non-existant.
+    
     pub fn from_file<P: AsRef<Path>>(path: P) -> Result<Script, Box<dyn Error>>
     where
         for<'de> Script: Deserialize<'de>,

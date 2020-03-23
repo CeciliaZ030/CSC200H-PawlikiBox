@@ -1,0 +1,13 @@
+/Users/kevin/Desktop/chatbot/target/debug/deps/yansi-a025a8819922218e.rmeta: /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/lib.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/docify.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/macros.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/windows.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/paint.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/style.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/color.rs
+
+/Users/kevin/Desktop/chatbot/target/debug/deps/libyansi-a025a8819922218e.rlib: /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/lib.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/docify.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/macros.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/windows.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/paint.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/style.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/color.rs
+
+/Users/kevin/Desktop/chatbot/target/debug/deps/yansi-a025a8819922218e.d: /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/lib.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/docify.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/macros.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/windows.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/paint.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/style.rs /Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/color.rs
+
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/lib.rs:
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/docify.rs:
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/macros.rs:
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/windows.rs:
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/paint.rs:
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/style.rs:
+/Users/kevin/.cargo/registry/src/github.com-1ecc6299db9ec823/yansi-0.4.0/src/color.rs:
