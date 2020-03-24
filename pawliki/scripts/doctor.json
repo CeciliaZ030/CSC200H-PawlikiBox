@@ -1,4 +1,4 @@
- {
+{
   "greetings" : [
     "How do you do. Please tell me your problems.",
     "Please tell me what's been bothering you.",
@@ -870,31 +870,6 @@
             "What do you suppose that disparity means?",
             "Could there be some connection, do you suppose?",
             "How?"
-          ]
-        }
-      ]
-    }
-     {
-      "key" : "course",
-      "rank" : 0,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": true,
-          "decomposition_rule" : "(.*)couse is(.+)" ,
-          "reassembly_rules" : [
-            {"How is it different?", "look_for_preReq"},
-            "What differences do you see?",
-            "What does that difference suggest to you?",
-            "What other distinctions do you see?",
-            "What do you suppose that disparity means?",
-            "Could there be some connection, do you suppose?",
-            "How?"
-          ]
-          "lookup_rules" : [
-            "look_for_preReq",
-            "look_for_professor",
-
           ]
         }
       ]

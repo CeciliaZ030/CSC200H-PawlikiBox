@@ -1,41 +1,45 @@
-mod alphabet;
-mod db;
-pub mod script;
+
+#[macro_use]
+extern crate log;
 
 use rand::prelude::*;
 use regex::{Captures, Regex};
 use std::collections::{HashMap, VecDeque};
 use std::error::Error;
 
+mod alphabet;
+pub mod script;
+pub mod database;
+
 use crate::alphabet::Alphabet;
 use crate::script::{Keyword, Reflection, Script, Synonym, Transform};
-use crate::db::{DB, Data};
+use crate::database::{Database, Data};
 use word2vec::wordvectors::WordVector;
 
 #[derive(Default)]
-pub struct Pawliki<'a> {
+pub struct Pawlicki<'a> {
     script: Script,
-    database: DB,
+    database: Database,
     memory: VecDeque<String>,
     rule_usage: HashMap<String, usize>,
     fallbacks: Vec<&'a str>,
 }
 
-impl Pawliki <'_> {
-
-	//Initialize Pawliki to reads his script
-    pub fn from_file<'a>(location1: &'a str, location2: &'a str) -> Result<Pawliki<'a>, Box<dyn Error>>{
-        let mut e = Pawliki {
+impl Pawlicki<'_> {
+    //Initialize Pawliki to reads his script
+    pub fn from_file<'a>(location1: &'a str, location2: &'a str) -> Result<Pawlicki<'a>, Box<dyn Error>> {
+        let mut e = Pawlicki {
             script: {
                 Script::from_file(location1)?
             },
             database: {
-                DB::from_file(location2)?
+                Database::from_file(location2)?
             },
             memory: VecDeque::new(),
             rule_usage: HashMap::new(),
             fallbacks: Vec::new(),
         };
+
         e.fallbacks.push("Don't you think that's a little harsh?");
         e.fallbacks.push("I am only an adviser.");
         e.fallbacks.push("What does that suggest to you?");
@@ -46,56 +50,71 @@ impl Pawliki <'_> {
         e.fallbacks.push("Tell me more!");
         e.fallbacks.push("I don't understand you fully.");
         e.fallbacks.push("Did you know my son who is a veteran?");
+        e.fallbacks.push("That sounds like a tough situation.");
+        e.fallbacks.push("Im really sorry to hear that.");
+        e.fallbacks.push("Please go on.");
+        e.fallbacks.push("Maybe you could elaborate, I don't think I understand the problem.");
+        e.fallbacks.push("Well, that is not really something I can help you with.");
+        e.fallbacks.push("I think you are all set to complete the major requirements, so don't worry about it.");
+        e.fallbacks.push("Could you send me the question again in an email, I think I should be able to find the answer though.");
         e.fallbacks.push("Well, as long as the Corona Virus doesn't get us.");
         e.fallbacks.push("Tell me more about that.");
         e.fallbacks.push("Are you worried about that ?");
+        e.fallbacks.push("Sometimes these things just aren't easy.");
         e.fallbacks.push("How about we just wait and find out?");
+        e.fallbacks.push("Oh I did say that already.");
         e.fallbacks.push("Maybe you should ask Danielle Vander Horst, I don't think I know the answer. ");
+
         Ok(e)
     }
 
     pub fn greet(&self) -> String {
-    	match self.script.rand_greet() {
-    		Some(greet) => greet.to_string(),
-    		None => {
-    			String::from("Hello, I am Pawliki")
-    		}
-    	}
+        match self.script.rand_greet() {
+            Some(greet) => greet.to_string(),
+            None => {
+                String::from("Hello, I am Pawlicki")
+            }
+        }
     }
 
     pub fn farewell(&self) -> String {
         match self.script.rand_farewell() {
             Some(farwell) => farwell.to_string(),
             None => {
-                String::from("Goodbye.") //If farewells are empty, have default
+                String::from("Goodbye.")
             }
         }
     }
 
-    pub fn fallback(&self, model: &WordVector, input: &str) -> String {  //Choose a fallback based on sentences additive cosine similarity
+    pub fn fallback(&self, model: &WordVector, input: &str, printoption : bool) -> String {  //Choose a fallback based on sentences additive cosine similarity
         let mut max_fallback_similarity = 0.0;
-        let mut j =0 ;
-        let mut i =0 ;
         let mut num_words =0.0000001; //avoid divide by 0
         let mut current_response = "I couldn't understand a single word of that! (literally)";
         let mut cosine_words = 0.0;
         let mut rng : ThreadRng = rand::thread_rng();
         let input_split: Vec<&str> = input.split(" ").collect();
         for fallback in &self.fallbacks{
+            if rng.gen_range(0, 5) > 1 {
+                    continue
+            }
             let mut fallback_similarity = 0.0;
             let fallback_split: Vec<&str> = fallback.split(" ").collect();
             for input_word in &input_split {
-                i+=1;
-                if i % 2 == 0 { continue; }
+                if rng.gen_range(0, 5) > 1 {
+                    continue
+                }
                 for fallback_word in &fallback_split {
-                    j+=1;
-                    if j % 2 == 0 { continue; }
+                    if rng.gen_range(0, 5) > 1 {
+                        continue
+                    }
                     let vec1 = model.get_vector(input_word.as_ref());
                     let vec2 = model.get_vector(fallback_word.as_ref());
                     match (vec1, vec2) {
                         (Some(_), Some(_)) => {
-                                                num_words += 1.0;
-                                                cosine_words = dot_product(vec1.unwrap(), vec2.unwrap());
+                            num_words += 1.0;
+                            cosine_words = dot_product(vec1.unwrap(), vec2.unwrap());
+//                                                println!("{}", cosine_words);
+//                                                println!("{}, {}", input_word, fallback_word)
                         }
                         _ => {
                             cosine_words = 0.0;
@@ -106,7 +125,9 @@ impl Pawliki <'_> {
             }
             let y: f32 = rng.gen_range(0.01, 0.2); //add some noise so fallbacks are not deterministic
             fallback_similarity = y + fallback_similarity / num_words;
-            println!("fallback: {} similarity: {}", fallback, fallback_similarity);
+            if printoption{
+                println!("fallback: {} similarity: {}", fallback, fallback_similarity);
+            }
             if fallback_similarity > max_fallback_similarity{
                 max_fallback_similarity = fallback_similarity;
                 current_response = fallback;
@@ -115,11 +136,15 @@ impl Pawliki <'_> {
             num_words = 0.00000001;
         }
         String::from(current_response)
+//        match self.script.rand_fallback() {
+//            Some(fallback) => fallback.to_string(),
+//            None => {
+//                String::from("Go on.") //A fallback for the fallback - har har
+//            }
+//        }
     }
 
-    // fallback param (&mut self, input: &str, model: &WordVector)
-
-    pub fn respond(&mut self, input: &str) -> String {
+    pub fn respond(&mut self, input: &str, model: &WordVector, printoption : bool) -> String {
         //Initialize response
         let mut response: String;
         //Arr of active phrases to process and
@@ -127,106 +152,116 @@ impl Pawliki <'_> {
         let (active_phrase, mut keystack) = populate_keystack(phrases, &self.script.keywords);
 
         if let Some(phrase) = active_phrase {
-            if let Some(res) = self.get_response(&phrase, &mut keystack) {
+            if let Some(res) = self.get_response(&phrase, &mut keystack, printoption) {
                 response = res;
-            } else if let Some(mem) = self.memory.pop_front() {
-            //Attempt to use something in memory, otherwise use fallback trick
-            println!("Using memory");
-            response = mem;
-            } else {
-                println!("Using fallback statement");
-                // response = self.fallback(&model, input);
-                response = format!("Go on");
             }
-        } else if let Some(mem) = self.memory.pop_front() {
+            else if let Some(mem) = self.memory.pop_front() {
             //Attempt to use something in memory, otherwise use fallback trick
-            println!("Using memory");
+                if printoption{
+                    println!("Using memory");
+                }
+                response = mem;
+            } else {
+                if printoption{
+                    println!("Using fallback statement");
+                }
+                response = self.fallback(&model, input, printoption);
+            }
+        }
+        else if let Some(mem) = self.memory.pop_front() {
+            //Attempt to use something in memory, otherwise use fallback trick
+            if printoption {
+                println!("Using memory");
+            }
             response = mem;
         } else {
-            println!("Using fallback statement");
-            // response = self.fallback(&model, input);
-            response = format!("Go on");
+            if printoption{
+                println!("Using fallback statement");
+            }
+            response = self.fallback(&model, input, printoption);
         }
 
         response
     }
 
-    fn get_response(&mut self, phrase: &str, keystack: &mut VecDeque<Keyword>) -> Option<String> {
+    fn get_response(&mut self, phrase: &str, keystack: &mut VecDeque<Keyword>, printoption : bool) -> Option<String> {
         let mut response: Option<String> = None;
 
-        //Search for a response while the keystack is not empty
         'search: while response.is_none() && !keystack.is_empty() {
-            let next = keystack.pop_front().unwrap(); //safe due to prior check
+            let next = keystack.pop_front().unwrap();
 
-println!("keystack: {:?}", next.key);
-            //For each rule set, attempt to decompose phrase then reassemble a response
+if printoption{
+    println!("key: {:?}", next.key);
+}
 
-            'decompostion: for r in next.rules {
-println!("rule: {:?}", r.decomposition_rule);
-
-                //Get all regex permutations of the decomposition rule (dependent upon synonyms)
+            'decomposition: for r in next.rules {
+if printoption{
+    println!("rule: {:?}", r.decomposition_rule);
+}
                 let regexes = permutations(&r.decomposition_rule, &self.script.synonyms);
 
                 for re in regexes {
+
                     if let Some(cap) = re.captures(phrase) {
-println!("cap: {:?}", cap);
+if printoption{
+    println!("cap: {:?}", cap);
+}
 
                         // if the word does not need to be looked up, lookup_rules is empty, so return NONE
                         let mut data: Data = Data::None;
                         if r.lookup {
-                            data = self.get_lookup(&r.decomposition_rule, &r.lookup_rule, &cap);
+                            data = self.get_query(&r.decomposition_rule, &r.lookup_rule, &cap, printoption);
                         }
-// println!("data: {:?}", data);
 
-                        //修改get_reassembly，考虑data判断最好的assem rule，需要handle无data的情况
-                        if let Some(assem) = self.get_reassembly(&r.decomposition_rule, &r.reassembly_rules, &data)
-                        {
-println!("assem: {:?}", assem);
+                        if let Some(assem) = self.get_reassembly(&r.decomposition_rule,
+                                                                 &r.reassembly_rules, &data, printoption) {
+if printoption{
+    println!("assemble: {:?}", assem);
+}
 
-                            //Goto逻辑不变?
                             if let Some(goto) = is_goto(&assem) {
-// println!("goto: {:?}", goto);
                                 //The best rule was a goto, push associated key entry to stack
-                                if let Some(entry) =
-                                    self.script.keywords.iter().find(|ref a| a.key == goto)
-                                {
-// println!("entry: {:?}", entry);
+                                if let Some(entry) = self.script.keywords.iter().find(|ref a| a.key == goto) {
                                     //Push to front of keystack and skip to it
+                                    info!(
+                                        "Using GOTO '{}' for key '{}' and decomp rule '{}'",
+                                        goto, next.key, r.decomposition_rule
+                                    );
                                     keystack.push_front(entry.clone());
-                                    break 'decompostion;
+                                    break 'decomposition;
                                 } else {
+                                    error!("No such keyword: {}", goto);
                                     continue; //Something wrong with this GOTO
                                 }
                             }
 
-                            //修改：保留原有$2替换功能，通过assem和data组装response
-                            response = assemble(&assem, &data, &cap, &self.script.reflections);
-// println!("response: {:?}", response);
+                            response = assemble(&assem, &cap, &self.script.reflections, &data, printoption);
 
-                            //memorise逻辑不变？
                             if response.is_some() {
                                 if r.memorise {
-                                    //We'll save this response for later...
+                                    // save this response for later
                                     self.memory.push_back(response.unwrap());
                                     response = None;
                                 } else {
-                                    //We found a response, exit
-// println!("should break");
+                                    info!("Found response");
                                     break 'search;
                                 }
                             }
-                        }
-                    }
-                }
-            }
-        }
+
+                        } /* [END] if statement "assem" */
+
+                    } /* [END] if statement "cap" */
+
+                } /* [END] for loop "regex" */
+
+            } /* [END] for loop "decomposition" */
+
+        } /* [END] wile loop "search" */
 
         response
     }
 
-    //写这个：Data 里面本身就是一个Option，有数据则是Enum里的Types，没有则是None
-    //所有的查询方法都要take in array of args，处理一个问句中很多主体的情况
-    fn get_lookup<'t>(&mut self, dr: &str, lr: &str, captures: &Captures<'t>) -> Data {
+    fn get_query<'t>(&mut self, dr: &str, lr: &str, captures: &Captures<'t>, printoption : bool) -> Data {
 
         //Array of lookup parameters
         let mut params: Vec<String> = Vec::new();
@@ -248,27 +283,25 @@ println!("assem: {:?}", assem);
             }
             count += 1;
         }
-println!("params: {:?}", params);
-        //执行query
-        self.database.query_executor(lr, &params)
+if printoption{
+    println!("params: {:?}", params);
+}
+        self.database.query_executor(lr, &params, printoption)
     }
 
-    //改这个
-    //根據是否需要lookup和data是否為空確定使用哪個rule
-    // id is decomp rule; rules are reassem rules
     fn get_reassembly(&mut self, id: &str, rules: &[String], data:
-        &Data) -> Option<String> {
+        &Data, printoption : bool) -> Option<String> {
         let mut best_rule: Option<String> = None;
         let mut count: Option<usize> = None;
 
-        //rules are prepended with an id to make them unique within that domain
-        //(e.g. deconstruction rules could share similar looking assembly rules)
         for (index, rule) in rules.iter().enumerate() {
             // find the number of "$" appears in the rule
             // let number_of_param = rule.matches("$").count();
 
             let key = String::from(id) + rule;
-println!("key {:?}", key);
+if printoption{
+    println!("key {:?}", key);
+}
 
             match data {
                 Data::None => {
@@ -280,7 +313,9 @@ println!("key {:?}", key);
                     }
                 },
                 Data::Number(n) => {
-                    println!("n: {:?}", n);
+                    if printoption{
+                        println!("n: {:?}", n);
+                    }
                     let num_of_prereq: u16 = n.parse().unwrap();
                     if num_of_prereq > 0 {
                         best_rule = Some(rule.clone());
@@ -310,42 +345,9 @@ println!("key {:?}", key);
                     }
                 },
                 Data::Clusters(clusters) => {},
+                Data::Term(s) => {},
             }
 
-            // match data {
-            //     Data::None => {
-            //
-            //         // if there is no data, we should only use the last rule
-            //         if index == rules.len() - 1 {
-            //             best_rule = Some(rule.clone());
-            //             break;
-            //         } else {
-            //             continue;
-            //         }
-            //     },
-            //     Data::ACourse(c) => {
-            //     },
-            //     Data::ACluster(c) => {
-            //     },
-            //     Data::Instructor(s) => {
-            //         best_rule = Some(rule.clone());
-            //         break;
-            //     },
-            //     Data::Description(d) => {
-            //         best_rule = Some(rule.clone());
-            //         break;
-            //     }
-            //     Data::Courses(courses) => {
-            //         if courses.len() != number_of_param {
-            //             continue;
-            //         }
-            //         best_rule = Some(rule.clone());
-            //         break;
-            //     },
-            //     Data::Clusters(courses) => {
-            //     },
-            //
-            // }
             match self.rule_usage.contains_key(&key) {
                 true => {
                     //If it has already been used, get its usage count
@@ -382,10 +384,9 @@ println!("key {:?}", key);
         best_rule
     }
 
-}
+} /* [END] implement for Pawlicki */
 
-//改这个
-fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Reflection]) -> Option<String> {
+fn assemble(rule: &str, captures: &Captures<'_>, reflections: &[Reflection], data: &Data, printoption : bool) -> Option<String> {
     let mut res: String = format!("");
     // let mut res = String::from(rule);
     let mut ok = true;
@@ -402,7 +403,9 @@ fn assemble(rule: &str, data: &Data, captures: &Captures<'_>, reflections: &[Ref
 
         // assemeble the case when the rule contains @ symbol
         if w.contains("@") {
-println!("dealing with @ rule");
+if printoption{
+    println!("dealing with @ rule");
+}
             match data {
                 Data::None => {},
                 Data::Number(n) => {},
@@ -438,6 +441,7 @@ println!("dealing with @ rule");
                     }
                 },
                 Data::Clusters(c) => {},
+                Data::Term(s) => {},
             }
         }
 
@@ -486,6 +490,7 @@ println!("dealing with @ rule");
                     Data::Clusters(c) => {
 
                     },
+                    Data::Term(s) => {},
                 }
             } else { ok = false; }
 
@@ -503,6 +508,45 @@ println!("dealing with @ rule");
         Some(res)
     } else {
         None
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Returns NONE if not a goto, otherwise reutrns goto id
+fn is_goto(statement: &str) -> Option<String> {
+    match statement.contains("GOTO") {
+        true => Some(
+            statement
+                .replace("GOTO", "")
+                .replace(char::is_whitespace, ""),
+        ),
+        false => None,
     }
 }
 
@@ -641,18 +685,6 @@ split phrase into single word
 */
 fn get_words(phrase: &str) -> Vec<String> {
     phrase.split_whitespace().map(|s| s.to_string()).collect()
-}
-
-//Returns NONE if not a goto, otherwise reutrns goto id
-fn is_goto(statement: &str) -> Option<String> {
-    match statement.contains("GOTO") {
-        true => Some(
-            statement
-                .replace("GOTO", "")
-                .replace(char::is_whitespace, ""),
-        ),
-        false => None,
-    }
 }
 
 pub fn dot_product(arr1: &Vec<f32>, arr2: &Vec<f32>) -> f32 {

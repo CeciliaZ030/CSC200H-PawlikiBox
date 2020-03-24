@@ -1,288 +1,755 @@
 {
-  "greetings" : [
-    "Hello. What can I do for you today?"
-  ],
-  "farewells" : [
-    "Goodbye.  It was nice talking to you.",
-    "Goodbye.  This was really a nice talk.",
-    "Goodbye.  I'm looking forward to our next session.",
-    "This was a good session, wasn't it -- but time is over now.   Goodbye.",
-    "Maybe we could discuss this moreover in our next session?   Goodbye."
-  ],
-  "fallbacks" : [
-    "These fallbacks don't do anything, can be removed"
-  ],
-  "transforms" : [
-    { "word" : "dont", "equivalents" : ["don't", "do not"]},
-    { "word" : "cant", "equivalents":["can't", "cannot"]},
-    { "word" : "wont", "equivalents" : ["won't", "will not"]},
-    { "word" : "remember", "equivalents" : ["recollect", "recall"]},
-    { "word" : "dreamed", "equivalents" : ["dreamt"]},
-    { "word" : "dream", "equivalents" : ["dreams"]},
-    { "word" : "perhaps", "equivalents" : ["maybe"]},
-    { "word" : "yes", "equivalents" : ["certainly", "okay"]},
-    { "word" : "computer", "equivalents" : ["machine", "machines", "computers"]},
-    { "word" : "was", "equivalents" : ["were"]},
-    { "word" : "you are", "equivalents" : ["you're", "youre"]},
-    { "word" : "i am", "equivalents" : ["i'm"]},
-    { "word" : "alike", "equivalents" : ["same", "identical", "equivalent"]},
-    { "word" : "sorry", "equivalents" : ["apologise"]},
-    { "word" : "prerequisite", "equivalents" : ["prerequisites"]},
-    { "word" : "we would", "equivalents" : ["we'd"]}
-  ],
-  "synonyms" : [
-    { "word" : "be", "equivalents" : ["am", "is", "are", "was"]},
-    { "word" : "belief", "equivalents" : ["feel", "think", "believe", "wish"]},
-    { "word" : "cannot", "equivalents" : ["can't"]},
-    { "word" : "desire", "equivalents" : ["want", "need"]},
-    { "word" : "everyone", "equivalents" : ["everybody", "nobody", "noone"]},
-    { "word" : "family", "equivalents" : ["mother", "mom", "father", "dad", "sister", "brother", "wife", "children", "child"]},
-    { "word" : "happy", "equivalents" : ["elated", "glad", "better"]},
-    { "word" : "sad", "equivalents" : ["unhappy", "depressed", "sick"]},
-    { "word" :  "prerequisites", "equivalents" :  ["prerequisite","prereq", "prereqs", "required courses", "prep courses", "earlier courses"]},
-    { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
-    { "word" : "is", "equivalents" : ["are", "was", "will", "will be", "are the"]},
-    { "word" :  "csc", "equivalents" :  ["cs"]},
-    { "word" : "for", "equivalents" : ["of, to, will, fro, orf, fo, purpose, in order to, before"]}
-  ],
-  "reflections" : [
-    { "word" : "am", "inverse" : "are", "twoway" : false},
-    { "word" : "your", "inverse" : "my", "twoway" : true},
-    { "word" : "me", "inverse" : "you", "twoway" : false},
-    { "word" : "myself", "inverse" : "yourself", "twoway" : true},
-    { "word" : "i", "inverse" : "you", "twoway" : true},
-    { "word" : "i am", "inverse" : "you are", "twoway" : false},
-    { "word" : "was", "inverse": "were", "twoway": false},
-    { "word" : "we", "inverse": "you", "twoway": false}
-  ],
-
-  "keywords" : [
-    {
-      "key" : "sorry",
-      "rank" : 0,
-      "rules" : [
+    "greetings" : [
+        "Hello. What can I do for you today?"
+    ],
+    "farewells" : [
+        "Goodbye.  It was nice talking to you.",
+        "Goodbye.  This was really a nice talk.",
+        "Goodbye.  I'm looking forward to our next session.",
+        "This was a good session, wasn't it -- but time is over now.   Goodbye.",
+        "Maybe we could discuss this moreover in our next session?   Goodbye."
+    ],
+    "fallbacks" : [
+        "These fallbacks don't do anything, can be removed"
+    ],
+    "transforms" : [
+        { "word" : "dont", "equivalents" : ["don't", "do not"]},
+        { "word" : "cant", "equivalents":["can't", "cannot"]},
+        { "word" : "wont", "equivalents" : ["won't", "will not"]},
+        { "word" : "remember", "equivalents" : ["recollect", "recall"]},
+        { "word" : "dreamed", "equivalents" : ["dreamt"]},
+        { "word" : "dream", "equivalents" : ["dreams"]},
+        { "word" : "perhaps", "equivalents" : ["maybe"]},
+        { "word" : "yes", "equivalents" : ["certainly", "okay"]},
+        { "word" : "computer", "equivalents" : ["machine", "machines", "computers"]},
+        { "word" : "was", "equivalents" : ["were"]},
+        { "word" : "you are", "equivalents" : ["you're", "youre"]},
+        { "word" : "i am", "equivalents" : ["i'm"]},
+        { "word" : "alike", "equivalents" : ["same", "identical", "equivalent"]},
+        { "word" : "sorry", "equivalents" : ["apologise"]},
+        { "word" : "prerequisite", "equivalents" : ["prerequisites"]},
+        { "word" : "we would", "equivalents" : ["we'd"]}
+    ],
+    "synonyms" : [
+        { "word" : "be", "equivalents" : ["am", "is", "are", "was"]},
+        { "word" : "belief", "equivalents" : ["feel", "think", "believe", "wish"]},
+        { "word" : "cannot", "equivalents" : ["can't"]},
+        { "word" : "desire", "equivalents" : ["want", "need"]},
+        { "word" : "everyone", "equivalents" : ["everybody", "nobody", "noone"]},
+        { "word" : "family", "equivalents" : ["mother", "mom", "father", "dad", "sister", "brother", "wife", "children", "child"]},
+        { "word" : "happy", "equivalents" : ["elated", "glad", "better"]},
+        { "word" : "sad", "equivalents" : ["unhappy", "depressed", "sick"]},
+        { "word" :  "prerequisites", "equivalents" :  ["prerequisite","prereq", "prereqs", "required courses", "prep courses", "earlier courses"]},
+        { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
+        { "word" : "is", "equivalents" : ["are", "was", "will", "will be", "are the"]},
+        { "word" :  "csc", "equivalents" :  ["cs"]},
+        { "word" : "for", "equivalents" : ["of, to, will, fro, orf, fo, purpose, in order to, before"]}
+    ],
+    "reflections" : [
+        { "word" : "am", "inverse" : "are", "twoway" : false},
+        { "word" : "your", "inverse" : "my", "twoway" : true},
+        { "word" : "me", "inverse" : "you", "twoway" : false},
+        { "word" : "myself", "inverse" : "yourself", "twoway" : true},
+        { "word" : "i", "inverse" : "you", "twoway" : true},
+        { "word" : "i am", "inverse" : "you are", "twoway" : false},
+        { "word" : "was", "inverse": "were", "twoway": false},
+        { "word" : "we", "inverse": "you", "twoway": false}
+    ],
+    "keywords" : [
         {
-          "memorise" : false,
-          "lookup": false,
-          "decomposition_rule" : "(.+)",
-          "lookup_rule" : "",
-          "reassembly_rules" : [
-            "Please don't apologise.",
-            "Apologies are not necessary.",
-            "I've told you that apologies are not required.",
-            "It did not bother me. Please continue."
-          ]
-        }
-      ]
-    },
-    {
-        "key" : "prerequisite",
-        "rank" : 2,
-        "rules" : [
-            {
-                "memorise" : false,
-                "lookup" : true,
-                "decomposition_rule" : "what is(.*)prerequisite of (.+)?",
-                "lookup_rule" : "get_prereq",
-                "reassembly_rules" : [
-                    "The prerequisites of #2 @",
-                    "There is no prerequisite for #2!"
-                ]
-            },
-            {
-                "memorise" : false,
-                "lookup" : true,
-                "decomposition_rule" : "how many prerequisite(.+)",
-                "lookup_rule" : "prereq_count",
-                "reassembly_rules" : [
-                    "#1 has $0 prerequisite(s).",
-                    "There is no prerequisite for #1!"
-                ]
-            }
-        ]
-    },
-   {
-      "key" : "what",
-      "rank" : 0,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": true,
-          "decomposition_rule" : "what is(.*)prerequisite of(.+)",
-          "lookup_rule": "get_prereq",
-          "reassembly_rules" : [
-            "The prerequisite of #2 is $1.",
-            "The prerequisites of #2 are $0 and $1.",
-            "The prerequisites of #2 are $0, $1, and $2.",
-            "There is no prerequisite for #2!",
-            "Sorry, I don't know."
-          ]
+            "key" : "sorry",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.+)",
+                    "lookup_rule" : "",
+                    "reassembly_rules" : [
+                        "Please don't apologise.",
+                        "Apologies are not necessary.",
+                        "I've told you that apologies are not required.",
+                        "It did not bother me. Please continue."
+                    ]
+                }
+            ]
         },
         {
-          "memorise" : false,
-          "lookup": true,
-          "decomposition_rule" : "what is CSC(.*) about(.*)",
-          "lookup_rule": "get_description",
-          "reassembly_rules" : [
-            "#1 is about $2",
-            "Sorry, I don't know."
-          ]
-      },
-      {
-        "memorise" : false,
-        "lookup": true,
-        "decomposition_rule" : "what(.*)does(.+)teach(.*)",
-        "lookup_rule": "get_courses_by_prof",
-        "reassembly_rules" : [
-          "#2 teaches $1",
-          "#2 teaches $1 and $2",
-          "#2 teaches $1, $2, and $3",
-          "Sorry, I don't know"
-        ]
-      },
+            "key" : "prerequisite",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup" : true,
+                    "decomposition_rule" : "what is(.*)prerequisite of (.+)",
+                    "lookup_rule" : "get_prereq",
+                    "reassembly_rules" : [
+                        "The prerequisites of #2 @",
+                        "There is no prerequisite for #2!"
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup" : true,
+                    "decomposition_rule" : "does(.+)has prerequisite(.*)",
+                    "lookup_rule" : "get_prereq",
+                    "reassembly_rules" : [
+                        "Yes, its prerequisite @",
+                        "There is no prerequisite for #2!"
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup" : true,
+                    "decomposition_rule" : "how many prerequisite(.+)",
+                    "lookup_rule" : "prereq_count",
+                    "reassembly_rules" : [
+                        "#1 has $0 prerequisite(s).",
+                        "There is no prerequisite for #1!"
+                    ]
+                }
+            ]
+        },
         {
-        "memorise" : false,
-        "lookup": true,
-        "decomposition_rule" : "what(.*)requirements(.*)bs ",
-        "lookup_rule": "bs_requirements",
-        "reassembly_rules" : [
-          "#2 teaches $1",
-          "#2 teaches $1 and $2",
-          "#2 teaches $1, $2, and $3",
-          "Sorry, I don't know"
-        ]
-    },
-    {
-      "memorise" : false,
-      "lookup": true,
-      "decomposition_rule" : "what(.*)spring(.*)",
-      "lookup_rule": "get_spring_courses",
-      "reassembly_rules" : [
-          "The courses offered in spring @",
-          "I don't know any courses offered in spring."
-        ]
-    },
-    {
-      "memorise" : false,
-      "lookup": true,
-      "decomposition_rule" : "what(.*)fall(.*)",
-      "lookup_rule": "get_fall_courses",
-      "reassembly_rules" : [
-          "The courses offered in fall @",
-          "I don't know any courses offered in fall."
-        ]
-    }
+            "key" : "what",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what is(.*)prerequisite of(.+)",
+                    "lookup_rule": "get_prereq",
+                    "reassembly_rules" : [
+                        "The prerequisite of #2 is $1.",
+                        "The prerequisites of #2 are $0 and $1.",
+                        "The prerequisites of #2 are $0, $1, and $2.",
+                        "There is no prerequisite for #2!",
+                        "Sorry, I don't know."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)can we learn from(.+)",
+                    "lookup_rule": "get_description",
+                    "reassembly_rules" : [
+                        "#2 $2",
+                        "Sorry, I don't know."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what is(.+)about(.*)",
+                    "lookup_rule": "get_description",
+                    "reassembly_rules" : [
+                        "#1 is about $2",
+                        "Sorry, I don't know."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)does(.+)teach(.*)",
+                    "lookup_rule": "get_courses_by_prof",
+                    "reassembly_rules" : [
+                        "#2 teaches $1",
+                        "#2 teaches $1 and $2",
+                        "#2 teaches $1, $2, and $3",
+                        "Sorry, I don't know"
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)requirements(.*)bs ",
+                    "lookup_rule": "bs_requirements",
+                    "reassembly_rules" : [
+                        "#2 teaches $1",
+                        "#2 teaches $1 and $2",
+                        "#2 teaches $1, $2, and $3",
+                        "Sorry, I don't know"
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)spring(.*)",
+                    "lookup_rule": "get_spring_courses",
+                    "reassembly_rules" : [
+                        "The courses offered in spring @",
+                        "I don't know any courses offered in spring."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)fall(.*)",
+                    "lookup_rule": "get_fall_courses",
+                    "reassembly_rules" : [
+                        "The courses offered in fall @",
+                        "I don't know any courses offered in fall."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)(best|easy|hard)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "It really depends on your personal preference. You will find out what suits you the best eventually."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "who",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "who is(.*)instructor of (.+)",
+                    "lookup_rule": "get_instructor",
+                    "reassembly_rules" : [
+                        "The instructor of #2 is $1.",
+                        "Sorry, I don't know."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "who(.*)(best|good)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "This is a difficult question. I think Prof. Chen Ding is excellent."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "who(.*)(worst|bad)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "You will see after you fail some courses."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "who teaches(.+)",
+                    "lookup_rule": "get_instructor",
+                    "reassembly_rules" : [
+                        "The instructor of #2 is $1.",
+                        "Sorry, I don't know."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "bs",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "((.*)bs or ba(.*))|((.*)ba or bs(.*))",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Depends on how you think."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)requirements of bs(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "The core courses of bs are csc173, csc242, csc252, csc254, csc280, csc282."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)bs(.*)",
+                    "lookup_rule" : "",
+                    "reassembly_rules" : [
+                        "Doing BS is more challenging and rewarding.",
+                        "Maybe you should look into the degree requirements before saying that."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "ba",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)requirements of ba(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Students pursuing a BA degree in Computer Science must complete nine 4.0 credit computer science electives."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)ba(.*)",
+                    "lookup_rule" : "",
+                    "reassembly_rules" : [
+                        "Doing BA is more easier and you can combine it with other majors.",
+                        "Maybe you should look into the degree requirements before saying that."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "internship",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "how(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "You should go to the career center and sign up for handshake."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "when(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "The summer of your Junior year is a good time to get a internship."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)apply(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Gotta act early for internship application. Start preparing a reseme right now!"
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "internship",
+                    "reassembly_rules" : [
+                        "You should check out the Greene Center, they give great advice for all sorts of things. Internships, summer research, grad school, you name it"
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "instructor",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "who is(.*)instructor of(.+)",
+                    "lookup_rule": "get_instructor",
+                    "reassembly_rules" : [
+                        "The instructor of #2 is $1.",
+                        "Sorry, I don't know."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "how(.*)instructor of(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Different professor teaches differently.",
+                        "Maybe you can try it out yourself."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "drop",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "drop",
+                    "reassembly_rules" : [
+                        "Just to be clear, do you mean withdrawing from the course?",
+                        "Dropping the course should really only be a last resort option."
+                    ]
+                },
+                {
+                    "memorise": false,
+                    "lookup": false,
+                    "decomposition_rule": "(.*)drop",
+                    "lookup_rule" : "drop",
+                    "reassembly_rules": [
+                        "Drop options refers to deleting the course before the fourth week of school. That shouldn't affect anything."
+                    ]
+                },
+                {
+                    "memorise": false,
+                    "lookup": false,
+                    "decomposition_rule": "what happen if(.*)drop(.*)",
+                    "lookup_rule" : "",
+                    "reassembly_rules": [
+                        "Drop options refers to deleting the course before the fourth week of school. That shouldn't affect anything."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "withdraw",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise": false,
+                    "lookup": false,
+                    "decomposition_rule": "should i(.*)withdraw",
+                    "lookup_rule" : "",
+                    "reassembly_rules": [
+                        "You should withdraw only when you think you really cannot handel the class."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "If you withdraw, this courses will appear on the transcript with a grade of W, but GPA calculations are not impacted."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "s/f",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "should i(.*)s/f",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "You should S/F only when you think you really cannot handel the class."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "S/F means Satisfactory/Fail. Each semester students in the College have the option of declaring one course S/F"
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "writing",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)upper level writing(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well, you need 2 upper level writing requirements. I would recommend taking CSC273w, which is a great two credit class that focuses on professional career writing."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "what(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well, you need 2 upper level writing requirements. I would recommend taking CSC273w, which is a great two credit class that focuses on professional career writing."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well, you need 2 upper level writing requirements. I would recommend taking CSC273w, which is a great two credit class that focuses on professional career writing."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "spring",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)",
+                    "lookup_rule": "get_spring_courses",
+                    "reassembly_rules" : [
+                      "The courses offered in spring @",
+                      "I don't know any courses offered in spring."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well, spring semester mainly offers CS25* courses, which are mostly related to computer system."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "fall",
+            "rank" : 2,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "what(.*)",
+                    "lookup_rule": "get_fall_courses",
+                    "reassembly_rules" : [
+                      "The courses offered in fall @",
+                      "I don't know any courses offered in fall."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well, fall semester offers a wide range of courses; you should go to cdcs and take a look."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "track",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "what(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "The avaliable tracks in our department are Artificial Intelligence and Machine Vision, Natural Language Understanding, Human-Computer Interaction, Theory of Computation, Computer Systems, Computational Science."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "which(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well, what do you like? What do you think your strength is?"
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "hci",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "what is(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "HCI basically is all about front-end, game development, and graphics."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(what|which)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "The HCI track includes CSC 131: Recreational Graphics, CSC 174: Advanced Front End Web Design, CSC 186: Video Game Development, CSC 210: Web Programming, CSC 212: Human-Computer Interaction CSC 214: Mobile Application Development CSC 261: Database Systems, CSC 294: AR/VR Interaction Design."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "ai",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(what|which)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "If you're interested in AI, you should take CSC 244: Logical Foundations of AI, CSC 246: Machine Learning, CSC 249: Machine Vision."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "machine learning",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "(what|which)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Machine learning has a wide application. You can take CSC246 for that."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "system",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "(what|which)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "If you're interested in computer system, you should take CSC 255: Advanced Programming Systems, CSC 256: Operating Systems, CSC 257: Computer Networks, CSC 258: Parallel and Distributed Systems."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "theory",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "(what|which)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "If you're interested in Computational Theory, you should take CSC 281: Cryptography, CSC 283: Topics in Cryptography, CSC 284: Advanced Algorithms, CSC 286: Computational Complexity, CSC 287: Advanced Modes of Computation, and MTH 248: Graph Theory."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "research",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "how(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Research is a important part in our undergrad education. You should find out the area that you're interested in, and talk to professors who's specialized in the field."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "when(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "It's never too late to start doing research. Junior year is when people usually do it."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "which field(.*)good",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "If you work hard in any field, you will be rewarded."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "declare",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)when(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "You can declare your major anytime as long as you finish the Pre-major Requirements"
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(where|how)(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Please consult our undergrad coordinator. Her office is in Wegmans 2nd floor."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "hard",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "is(.*)hard(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Everything has its own difficulty."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "how hard is(.+)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "#1 is not too bad. Different students expereince different difficulty."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "csc",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "how is (.+)",
+                    "lookup_rule": "get_description",
+                    "reassembly_rules" : [
+                        "$1."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.*)introduce (.+)",
+                    "lookup_rule": "get_description",
+                    "reassembly_rules" : [
+                        "$1."
+                    ]
+                }
+            ]
+        }
     ]
-    },
-    {
-      "key" : "who",
-      "rank" : 0,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": true,
-          "decomposition_rule" : "who is(.*)instructor of (.+)",
-          "lookup_rule": "get_instructor",
-          "reassembly_rules" : [
-            "The instructor of #2 is $1.",
-            "Sorry, I don't know."
-          ]
-        }
-      ]
-    },
-    {
-      "key" : "bs",
-      "rank" : 2,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": false,
-          "decomposition_rule" : "((.*)bs or ba(.*))|((.*)ba or bs(.*))",
-          "lookup_rule": "",
-          "reassembly_rules" : [
-            "Personally, I think you should get a BS, but are you doing any other majors?"
-          ]
-      },
-      {
-        "memorise" : false,
-        "lookup": false,
-        "decomposition_rule" : "(.*)requirements(.*)bs(.*)",
-        "lookup_rule": "",
-        "reassembly_rules" : [
-            "The requirements for bs @."
-        ]
-      }
-      ]
-    },
-    {
-      "key" : "internship",
-      "rank" : 0,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": false,
-          "decomposition_rule" : "(.*)",
-          "lookup_rule": "internship",
-          "reassembly_rules" : [
-            "You should check out the Greene Center, they give great advice for all sorts of things. Internships, summer research, grad school, you name it"
-          ]
-        }
-      ]
-    },
-    {
-      "key" : "drop",
-      "rank" : 2,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": false,
-          "decomposition_rule" : "(.*)",
-          "lookup_rule": "drop",
-          "reassembly_rules" : [
-            "Dropping the course should really only be a last resort option."
-          ]
-        }
-      ]
-    },
-    {
-      "key" : "writing",
-      "rank" : 0,
-      "rules" : [
-        {
-          "memorise" : false,
-          "lookup": false,
-          "decomposition_rule" : "(.*)upper level writing(.*)",
-          "lookup_rule": "internship",
-          "reassembly_rules" : [
-            "Well, you need 2 upper level writing requirements. I would recommend taking CSC273w, which is a great two credit class that focuses on professional career writing."
-          ]
-        }
-      ]
-  },
-  {
-    "key" : "spring",
-    "rank" : 0,
-    "rules" : [
-      {
-        "memorise" : false,
-        "lookup": true,
-        "decomposition_rule" : "what(.*)",
-        "lookup_rule": "get_spring_courses",
-        "reassembly_rules" : [
-          "The courses offered in spring @",
-          "I don't know any courses offered in spring."
-        ]
-      },
-      {
-        "memorise" : false,
-        "lookup": true,
-        "decomposition_rule" : "(.*)",
-        "lookup_rule": "",
-        "reassembly_rules" : [
-          "Well, spring semester mainly offers CS25* courses, which are mostly related to computer system."
-        ]
-      }
-    ]
-  }
-  ]
 }
