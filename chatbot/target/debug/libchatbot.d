@@ -1,0 +1,1 @@
+/Users/kevin/Desktop/chatbot/target/debug/libchatbot.rlib: /Users/kevin/Desktop/chatbot/src/alphabet.rs /Users/kevin/Desktop/chatbot/src/database.rs /Users/kevin/Desktop/chatbot/src/lib.rs /Users/kevin/Desktop/chatbot/src/script.rs

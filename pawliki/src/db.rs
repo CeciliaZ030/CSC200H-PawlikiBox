@@ -27,7 +27,6 @@ pub struct Term {
     pub fall: bool
 }
 
-
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Course {
     pub id: String,
@@ -38,7 +37,6 @@ pub struct Course {
     pub instructor: String,
     pub description: String,
 }
-
 
 #[derive(Default, Serialize, Deserialize)]
 pub struct DB {
@@ -56,6 +54,7 @@ pub enum Data {
     Description(String),
     Courses(Vec<Course>),
     Clusters(Vec<Cluster>),
+    Term(String),
     None
 }
 
@@ -102,6 +101,17 @@ impl DB {
             "get_all_courses" => {
                 if let Some(c) = self.get_all_courses() {
                     ret = Data::Courses(c);
+                } else {
+                    ret = Data::None;
+                }
+            },
+            "get_term_of_course" => {
+                if let Some(t) = self.get_term_of_course(&args[0]) {
+                    if t.spring {
+                        ret = Data::Term("spring".to_string());
+                    } else {
+                        ret = Data::Term("fall".to_string());
+                    }
                 } else {
                     ret = Data::None;
                 }
@@ -206,6 +216,16 @@ impl DB {
 
     pub fn get_all_courses(&self) -> Option<Vec<Course>> {
         Some(self.courses.clone())
+    }
+
+    pub fn get_term_of_course(&self, id: &str) -> Option<Term> {
+        let mut res: Option<Term> = None;
+        for course in self.courses.clone() {
+            if course.id == id {
+                res = Some(course.term.clone());
+            }
+        }
+        res
     }
 
     pub fn get_fall_courses(&self) -> Option<Vec<Course>> {

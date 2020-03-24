@@ -1,10 +1,12 @@
 mod alphabet;
 mod db;
 pub mod script;
+
 use rand::prelude::*;
 use regex::{Captures, Regex};
 use std::collections::{HashMap, VecDeque};
 use std::error::Error;
+
 use crate::alphabet::Alphabet;
 use crate::script::{Keyword, Reflection, Script, Synonym, Transform};
 use crate::db::{DB, Data};
@@ -94,8 +96,6 @@ impl Pawliki <'_> {
                         (Some(_), Some(_)) => {
                                                 num_words += 1.0;
                                                 cosine_words = dot_product(vec1.unwrap(), vec2.unwrap());
-//                                                println!("{}", cosine_words);
-//                                                println!("{}, {}", input_word, fallback_word)
                         }
                         _ => {
                             cosine_words = 0.0;
@@ -115,12 +115,6 @@ impl Pawliki <'_> {
             num_words = 0.00000001;
         }
         String::from(current_response)
-//        match self.script.rand_fallback() {
-//            Some(fallback) => fallback.to_string(),
-//            None => {
-//                String::from("Go on.") //A fallback for the fallback - har har
-//            }
-//        }
     }
 
     // fallback param (&mut self, input: &str, model: &WordVector)
@@ -135,8 +129,7 @@ impl Pawliki <'_> {
         if let Some(phrase) = active_phrase {
             if let Some(res) = self.get_response(&phrase, &mut keystack) {
                 response = res;
-            }
-            else if let Some(mem) = self.memory.pop_front() {
+            } else if let Some(mem) = self.memory.pop_front() {
             //Attempt to use something in memory, otherwise use fallback trick
             println!("Using memory");
             response = mem;
@@ -145,8 +138,7 @@ impl Pawliki <'_> {
                 // response = self.fallback(&model, input);
                 response = format!("Go on");
             }
-        }
-        else if let Some(mem) = self.memory.pop_front() {
+        } else if let Some(mem) = self.memory.pop_front() {
             //Attempt to use something in memory, otherwise use fallback trick
             println!("Using memory");
             response = mem;
@@ -662,7 +654,6 @@ fn is_goto(statement: &str) -> Option<String> {
         false => None,
     }
 }
-
 
 pub fn dot_product(arr1: &Vec<f32>, arr2: &Vec<f32>) -> f32 {
     let mut result: f32 = 0.0;
