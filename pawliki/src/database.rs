@@ -55,7 +55,7 @@ pub enum Data {
     Description(String),
     Courses(Vec<Course>),
     Clusters(Vec<Cluster>),
-    Term(String),
+    Term(Term),
     None
 }
 
@@ -101,11 +101,7 @@ impl Database {
             },
             "get_term_of_course" => {
                 if let Some(t) = self.get_term_of_course(&args[0]) {
-                    if t.spring {
-                        ret = Data::Term("spring".to_string());
-                    } else {
-                        ret = Data::Term("fall".to_string());
-                    }
+                    ret = Data::Term(t);
                 } else {
                     ret = Data::None;
                 }
@@ -159,8 +155,12 @@ impl Database {
 
     pub fn get_instructor(&self, id: &str) -> Option<String> {
         let mut res: Option<String> = None;
+        let mut temp_id: &str = &["csc" , id].concat();
+        if id.contains("csc") {
+            temp_id = id;
+        }
         for course in self.courses.clone() {
-            if course.id == id {
+            if course.id == temp_id {
                 res = Some(course.instructor.clone());
             }
         }
@@ -169,8 +169,12 @@ impl Database {
 
     pub fn get_prerequisites(&self, id: &str) -> Option<Vec<Course>> {
         let mut res: Option<Vec<Course>> = None;
+        let mut temp_id: &str = &["csc" , id].concat();
+        if id.contains("csc") {
+            temp_id = id;
+        }
         for course in self.courses.clone() {
-            if course.id == id {
+            if course.id == temp_id {
                 let prereqs = course.prerequisites;
                 let mut temp: Vec<Course> = Vec::new();
                 for prerequisite in prereqs {
@@ -195,7 +199,11 @@ impl Database {
     }
 
     pub fn get_course_by_id(&self, id: &str) -> Option<Course> {
-        Some(self.courses.iter().find(|ref c| c.id == id)?.clone())
+        let mut temp_id: &str = &["csc" , id].concat();
+        if id.contains("csc") {
+            temp_id = id;
+        }
+        Some(self.courses.iter().find(|ref c| c.id == temp_id)?.clone())
     }
 
     pub fn get_courses_by_prof(&self, prof: &str) -> Option<Vec<Course>> {
@@ -215,9 +223,13 @@ impl Database {
     }
 
     pub fn get_term_of_course(&self, id: &str) -> Option<Term> {
+        let mut temp_id: &str = &["csc" , id].concat();
+        if id.contains("csc") {
+            temp_id = id;
+        }
         let mut res: Option<Term> = None;
         for course in self.courses.clone() {
-            if course.id == id {
+            if course.id == temp_id {
                 res = Some(course.term.clone());
             }
         }
@@ -250,8 +262,12 @@ impl Database {
 
     pub fn get_description_by_id(&self, id: &str) -> Option<String> {
         let mut res: Option<String> = None;
+        let mut temp_id: &str = &["csc" , id].concat();
+        if id.contains("csc") {
+            temp_id = id;
+        }
         for course in self.courses.clone() {
-            if course.id == id {
+            if course.id == temp_id {
                 res = Some(course.description.clone());
             }
         }
