@@ -180,7 +180,7 @@ impl Pawlicki<'_> {
             }
             response = self.fallback(&model, input, printoption);
         }
-
+        println!("");
         response
     }
 
@@ -289,8 +289,7 @@ if printoption{
         self.database.query_executor(lr, &params, printoption)
     }
 
-    fn get_reassembly(&mut self, id: &str, rules: &[String], data:
-        &Data, printoption : bool) -> Option<String> {
+    fn get_reassembly(&mut self, id: &str, rules: &[String], data: &Data, printoption : bool) -> Option<String> {
         let mut best_rule: Option<String> = None;
         let mut count: Option<usize> = None;
 
@@ -345,7 +344,9 @@ if printoption{
                     }
                 },
                 Data::Clusters(clusters) => {},
-                Data::Term(s) => {},
+                Data::Term(s) => {
+                    best_rule = Some(rule.clone());
+                },
             }
 
             match self.rule_usage.contains_key(&key) {
@@ -441,7 +442,17 @@ if printoption{
                     }
                 },
                 Data::Clusters(c) => {},
-                Data::Term(s) => {},
+                Data::Term(s) => {
+                    let ans;
+                    if s.spring && s.fall {
+                        ans = format!("both spring and fall");
+                    } else if !s.spring && s.fall {
+                        ans = format!("only fall");
+                    } else {
+                        ans = format!("only spring");
+                    }
+                    temp = temp.replace("@", &ans);
+                },           
             }
         }
 
@@ -510,32 +521,6 @@ if printoption{
         None
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 //Returns NONE if not a goto, otherwise reutrns goto id
