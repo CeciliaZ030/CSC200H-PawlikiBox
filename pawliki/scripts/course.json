@@ -800,6 +800,21 @@
             ]
         },
         {
+            "key" : "easy",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "is(.*)easy(.*)",
+                    "lookup_rule": "",
+                    "reassembly_rules" : [
+                        "Well...we will see."
+                    ]
+                }
+            ]
+        },
+        {
             "key" : "introduce",
             "rank" : 0,
             "rules" : [
