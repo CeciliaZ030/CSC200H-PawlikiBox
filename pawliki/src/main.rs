@@ -1,11 +1,5 @@
-//
-// //!
-// #[macro_use]
-// extern crate log;
 use env_logger;
-
 use pawliki::Pawlicki;
-
 use std::io::Write;
 use std::{env, io, thread, time};
 
@@ -13,13 +7,9 @@ fn main() {
     env_logger::init();
 
     let _args: Vec<String> = env::args().collect();
-    // if args.len() < 2 {
-    //     error!("Usage of pawliki is: ./pawliki [SCRIPT]");
-    //     panic!("Not enough arguments");
-    // }
 
     let mut pawliki = Pawlicki::from_file("scripts/course.json", "db/db.json").expect("Pawliki failed to load");
-    // let mut pawliki = Pawliki::from_file(&args[1], &args[2]).expect("Pawliki failed to load");
+
     println!("\nThis is our undergraduate student adviser named Pawliza. \nEnter '(over and out)' or '(oo)' or 'bye' to leave the session as described in project requirements.\n");
 
     println!("Would you like informative print statements that offer a peek into how Pawliza works? (yes/no) ");
