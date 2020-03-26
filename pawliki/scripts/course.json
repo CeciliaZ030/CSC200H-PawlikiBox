@@ -28,7 +28,12 @@
         { "word" : "alike", "equivalents" : ["same", "identical", "equivalent"]},
         { "word" : "sorry", "equivalents" : ["apologise"]},
         { "word" : "prerequisite", "equivalents" : ["prerequisites"]},
-        { "word" : "we would", "equivalents" : ["we'd"]}
+        { "word" : "we would", "equivalents" : ["we'd"]},
+        { "word" : "we are", "equivalents" : ["we're"]},
+        { "word" : "what is", "equivalents" : ["what's"]},
+        { "word" : "how is", "equivalents" : ["how's"]},
+        { "word" : "who is", "equivalents" : ["who's"]},
+        { "word" : "fine", "equivalents" : ["ok"]}
     ],
     "synonyms" : [
         { "word" : "be", "equivalents" : ["am", "is", "are", "was"]},
@@ -43,7 +48,7 @@
         { "word" : "internship", "equivalents" :  ["job", "summer work", "research", "intern"]},
         { "word" : "is", "equivalents" : ["are", "was", "will", "will be", "are the"]},
         { "word" :  "csc", "equivalents" :  ["cs"]},
-        { "word" : "for", "equivalents" : ["of, to, will, fro, orf, fo, purpose, in order to, before"]}
+        { "word" : "for", "equivalents" : ["of", "to", "will", "fro", "orf", "fo", "purpose", "in order to", "before"]}
     ],
     "reflections" : [
         { "word" : "am", "inverse" : "are", "twoway" : false},
@@ -56,6 +61,21 @@
         { "word" : "we", "inverse": "you", "twoway": false}
     ],
     "keywords" : [
+       {
+            "key" : "hello",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "(.+)",
+                    "lookup_rule" : "",
+                    "reassembly_rules" : [
+                        "How are you today？"
+                    ]
+                }
+            ]
+        },
         {
             "key" : "sorry",
             "rank" : 0,
@@ -70,6 +90,21 @@
                         "Apologies are not necessary.",
                         "I've told you that apologies are not required.",
                         "It did not bother me. Please continue."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "fine",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": false,
+                    "decomposition_rule" : "i am (.+)",
+                    "lookup_rule" : "",
+                    "reassembly_rules" : [
+                        "I'm glad to hear. Is there anything you want to know about CS classes?"
                     ]
                 }
             ]
@@ -153,9 +188,7 @@
                     "decomposition_rule" : "what(.*)does(.+)teach(.*)",
                     "lookup_rule": "get_courses_by_prof",
                     "reassembly_rules" : [
-                        "#2 teaches $1",
-                        "#2 teaches $1 and $2",
-                        "#2 teaches $1, $2, and $3",
+                        "#2 teaches @",
                         "Sorry, I don't know"
                     ]
                 },
@@ -242,6 +275,45 @@
                     "reassembly_rules" : [
                         "The instructor of #2 is $1.",
                         "Sorry, I don't know."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "how",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "how is (.+)",
+                    "lookup_rule": "get_description",
+                    "reassembly_rules" : [
+                        "$1."
+                    ]
+                }
+            ]
+        },
+        {
+            "key" : "which",
+            "rank" : 0,
+            "rules" : [
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "which term is (.+)",
+                    "lookup_rule": "get_term_of_course",
+                    "reassembly_rules" : [
+                        "#1 is taught in @."
+                    ]
+                },
+                {
+                    "memorise" : false,
+                    "lookup": true,
+                    "decomposition_rule" : "which semester is (.+)",
+                    "lookup_rule": "get_term_of_course",
+                    "reassembly_rules" : [
+                        "#1 is taught in @."
                     ]
                 }
             ]
@@ -728,22 +800,13 @@
             ]
         },
         {
-            "key" : "csc",
+            "key" : "introduce",
             "rank" : 0,
             "rules" : [
                 {
                     "memorise" : false,
-                    "lookup": false,
-                    "decomposition_rule" : "how is (.+)",
-                    "lookup_rule": "get_description",
-                    "reassembly_rules" : [
-                        "$1."
-                    ]
-                },
-                {
-                    "memorise" : false,
-                    "lookup": false,
-                    "decomposition_rule" : "(.*)introduce (.+)",
+                    "lookup": true,
+                    "decomposition_rule" : "introduce (.+)",
                     "lookup_rule": "get_description",
                     "reassembly_rules" : [
                         "$1."
